@@ -8,7 +8,7 @@ type (
 	sayVoice    string
 	sayLanguage string
 
-	SayOption func(t *TwiML)
+	SayOption func(t TwiML)
 )
 
 const (
@@ -126,19 +126,19 @@ const (
 )
 
 func Voice(v sayVoice) SayOption {
-	return func(t *TwiML) {
+	return func(t TwiML) {
 		t.SetOption("voice", string(v))
 	}
 }
 
 func Language(l sayLanguage) SayOption {
-	return func(t *TwiML) {
+	return func(t TwiML) {
 		t.SetOption("language", string(l))
 	}
 }
 
 func Loop(n int) SayOption {
-	return func(t *TwiML) {
+	return func(t TwiML) {
 		t.SetOption("loop", strconv.Itoa(n))
 	}
 }
