@@ -5,71 +5,74 @@ import (
 )
 
 type (
-	twiml struct {
+	// TwiML is base struct
+	TwiML struct {
 		XMLName xml.Name
-		Text string `xml:",chardata"`
-		Attrs []xml.Attr `xml:",attr"`
-		Verbs []twiml
+		Text    string     `xml:",chardata"`
+		Attrs   []xml.Attr `xml:",attr"`
+		Verbs   []*TwiML
 	}
 
-	option func(t *twiml)
+	option func(t *TwiML)
 )
 
-const rootTagName = "Response"
+const rootTagName = "VoiceResponse"
 
-func newTwiML(tagName string, options ...option) twiml {
-	t := twiml{
+// New creates a new TwiML instance
+func New(tagName string, options ...option) *TwiML {
+	t := &TwiML{
 		XMLName: xml.Name{Local: tagName},
 	}
 	for _, fn := range options {
-		fn(&t)
+		fn(t)
 	}
 	return t
 }
 
-func (t *twiml) append(v twiml) {
+// Append a child element to this element
+func (t *TwiML) Append(v *TwiML) {
 	t.Verbs = append(t.Verbs, v)
 }
 
-func (t *twiml) nest(v twiml) twiml {
-	t.append(v)
+// Nest a child element to this element and returning the newly created element
+func (t *TwiML) Nest(v *TwiML) *TwiML {
+	t.Append(v)
 	return v
 }
 
 // ToXML returns XML String with XML declaration
-func (t *twiml) ToXML() (string, error) {
+func (t *TwiML) ToXML() (string, error) {
 	x, err := t.String()
 	return xml.Header + x, err
 }
 
 // String returns XML String
-func (t *twiml) String() (string, error) {
+func (t *TwiML) String() (string, error) {
 	//s, err := t.Marshal()
 	s, err := t.MarshalIndent("", " ")
 	return string(s), err
 }
 
 // Marshal returns XML Byte Slice
-func (t *twiml) Marshal() ([]byte, error) {
+func (t *TwiML) Marshal() ([]byte, error) {
 	return xml.Marshal(t)
 }
 
 // MarshalIndent returns XML Byte Slice with prefix and indent
-func (t *twiml) MarshalIndent(prefix string, indent string) ([]byte, error) {
+func (t *TwiML) MarshalIndent(prefix string, indent string) ([]byte, error) {
 	return xml.MarshalIndent(t, prefix, indent)
 }
 
-func text(v string) option {
-	return func(t *twiml) {
-		t.Text = v
-	}
+// SetOption adds key-value attributes to the generated xml
+func (t *TwiML) SetOption(key, value string) *TwiML {
+	t.Attrs = append(t.Attrs, xml.Attr{
+		Name: xml.Name{Local: key}, Value: value,
+	})
+	return t
 }
 
-func attr(k string, v string) option {
-	return func(t *twiml) {
-		t.Attrs = append(t.Attrs, xml.Attr{
-			Name: xml.Name{Local: k}, Value: v,
-		})
-	}
+// SetText sets body text of xml element
+func (t *TwiML) SetText(text string) *TwiML {
+	t.Text = text
+	return t
 }
-
