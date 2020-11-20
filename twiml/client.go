@@ -1,8 +1,8 @@
 package twiml
 
 import (
-	"twilio-golang/twiml/const/client"
-	"twilio-golang/twiml/const/http"
+	"gotwiml/twiml/const/client"
+	"gotwiml/twiml/const/http"
 )
 
 type (

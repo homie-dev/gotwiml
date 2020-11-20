@@ -2,7 +2,8 @@ package twiml
 
 import (
 	"strconv"
-	"twilio-golang/twiml/const/dial"
+
+	"gotwiml/twiml/const/dial"
 )
 
 type Attr func(TwiML)
