@@ -2,143 +2,23 @@ package twiml
 
 import (
 	"strconv"
+	"twilio-golang/twiml/const/say"
 )
 
-type (
-	sayVoice    string
-	sayLanguage string
-
-	SayOption func(t TwiML)
-)
-
-const (
-	Man                 = sayVoice("man")
-	Woman               = sayVoice("woman")
-	Alice               = sayVoice("alice")
-	PollyAditi          = sayVoice("Polly.Aditi")
-	PollyAmy            = sayVoice("Polly.Amy")
-	PollyAstrid         = sayVoice("Polly.Astrid")
-	PollyBianca         = sayVoice("Polly.Bianca")
-	PollyBrian          = sayVoice("Polly.Brian")
-	PollyCamila         = sayVoice("Polly.Camila")
-	PollyCarla          = sayVoice("Polly.Carla")
-	PollyCarmen         = sayVoice("Polly.Carmen")
-	PollyCeline         = sayVoice("Polly.Celine")
-	PollyChantal        = sayVoice("Polly.Chantal")
-	PollyConchita       = sayVoice("Polly.Conchita")
-	PollyCristiano      = sayVoice("Polly.Cristiano")
-	PollyDora           = sayVoice("Polly.Dora")
-	PollyEmma           = sayVoice("Polly.Emma")
-	PollyEnrique        = sayVoice("Polly.Enrique")
-	PollyEwa            = sayVoice("Polly.Ewa")
-	PollyFiliz          = sayVoice("Polly.Filiz")
-	PollyGeraint        = sayVoice("Polly.Geraint")
-	PollyGiorgio        = sayVoice("Polly.Giorgio")
-	PollyGwyneth        = sayVoice("Polly.Gwyneth")
-	PollyHans           = sayVoice("Polly.Hans")
-	PollyInes           = sayVoice("Polly.Ines")
-	PollyIvy            = sayVoice("Polly.Ivy")
-	PollyJacek          = sayVoice("Polly.Jacek")
-	PollyJan            = sayVoice("Polly.Jan")
-	PollyJoanna         = sayVoice("Polly.Joanna")
-	PollyJoey           = sayVoice("Polly.Joey")
-	PollyJustin         = sayVoice("Polly.Justin")
-	PollyKarl           = sayVoice("Polly.Karl")
-	PollyKendra         = sayVoice("Polly.Kendra")
-	PollyKimberly       = sayVoice("Polly.Kimberly")
-	PollyLea            = sayVoice("Polly.Lea")
-	PollyLiv            = sayVoice("Polly.Liv")
-	PollyLotte          = sayVoice("Polly.Lotte")
-	PollyLucia          = sayVoice("Polly.Lucia")
-	PollyLupe           = sayVoice("Polly.Lupe")
-	PollyMads           = sayVoice("Polly.Mads")
-	PollyMaja           = sayVoice("Polly.Maja")
-	PollyMarlene        = sayVoice("Polly.Marlene")
-	PollyMathieu        = sayVoice("Polly.Mathieu")
-	PollyMatthew        = sayVoice("Polly.Matthew")
-	PollyMaxim          = sayVoice("Polly.Maxim")
-	PollyMia            = sayVoice("Polly.Mia")
-	PollyMiguel         = sayVoice("Polly.Miguel")
-	PollyMizuki         = sayVoice("Polly.Mizuki")
-	PollyNaja           = sayVoice("Polly.Naja")
-	PollyNicole         = sayVoice("Polly.Nicole")
-	PollyPenelope       = sayVoice("Polly.Penelope")
-	PollyRaveena        = sayVoice("Polly.Raveena")
-	PollyRicardo        = sayVoice("Polly.Ricardo")
-	PollyRuben          = sayVoice("Polly.Ruben")
-	PollyRussell        = sayVoice("Polly.Russell")
-	PollySalli          = sayVoice("Polly.Salli")
-	PollySeoyeon        = sayVoice("Polly.Seoyeon")
-	PollyTakumi         = sayVoice("Polly.Takumi")
-	PollyTatyana        = sayVoice("Polly.Tatyana")
-	PollyVicki          = sayVoice("Polly.Vicki")
-	PollyVitoria        = sayVoice("Polly.Vitoria")
-	PollyZeina          = sayVoice("Polly.Zeina")
-	PollyZhiyu          = sayVoice("Polly.Zhiyu")
-	PollyAmyNeural      = sayVoice("Polly.Amy-Neural")
-	PollyEmmaNeural     = sayVoice("Polly.Emma-Neural")
-	PollyBrianNeural    = sayVoice("Polly.Brian-Neural")
-	PollySalliNeural    = sayVoice("Polly.Salli-Neural")
-	PollyIvyNeural      = sayVoice("Polly.Ivy-Neural")
-	PollyJoannaNeural   = sayVoice("Polly.Joanna-Neural")
-	PollyKendraNeural   = sayVoice("Polly.Kendra-Neural")
-	PollyKimberlyNeural = sayVoice("Polly.Kimberly-Neural")
-	PollyJoeyNeural     = sayVoice("Polly.Joey-Neural")
-	PollyJustinNeural   = sayVoice("Polly.Justin-Neural")
-	PollyMatthewNeural  = sayVoice("Polly.Matthew-Neural")
-	PollyCamilaNeural   = sayVoice("Polly.Camila-Neural")
-	PollyLupeNeural     = sayVoice("Polly.Lupe-Neural")
-
-	Arb     = sayLanguage("arb")
-	CaEs    = sayLanguage("ca-ES")
-	CyGb    = sayLanguage("cy-GB")
-	DaDk    = sayLanguage("da-DK")
-	DeDe    = sayLanguage("de-DE")
-	EnAu    = sayLanguage("en-AU")
-	EnCa    = sayLanguage("en-CA")
-	EnGb    = sayLanguage("en-GB")
-	EnGbWls = sayLanguage("en-GB-WLS")
-	EnIn    = sayLanguage("en-IN")
-	EnUs    = sayLanguage("en-US")
-	EsEs    = sayLanguage("es-ES")
-	EsMx    = sayLanguage("es-MX")
-	EsUs    = sayLanguage("es-US")
-	FiFi    = sayLanguage("fi-FI")
-	FrCa    = sayLanguage("fr-CA")
-	FrFr    = sayLanguage("fr-FR")
-	HiIn    = sayLanguage("hi-IN")
-	IsIs    = sayLanguage("is-IS")
-	ItIt    = sayLanguage("it-IT")
-	JaJp    = sayLanguage("ja-JP")
-	KoKr    = sayLanguage("ko-KR")
-	NbNo    = sayLanguage("nb-NO")
-	NlNl    = sayLanguage("nl-NL")
-	PlPl    = sayLanguage("pl-PL")
-	PtBr    = sayLanguage("pt-BR")
-	PtPt    = sayLanguage("pt-PT")
-	RoRo    = sayLanguage("ro-RO")
-	RuRu    = sayLanguage("ru-RU")
-	SvSe    = sayLanguage("sv-SE")
-	TrTr    = sayLanguage("tr-TR")
-	ZhCn    = sayLanguage("zh-CN")
-	ZhHk    = sayLanguage("zh-HK")
-	ZhTw    = sayLanguage("zh-TW")
-)
-
-func Voice(v sayVoice) SayOption {
+func Voice(v say.Voice) Attr {
 	return func(t TwiML) {
-		t.SetOption("voice", string(v))
+		t.SetAttr(AttrVoice, string(v))
 	}
 }
 
-func Language(l sayLanguage) SayOption {
+func Language(l say.Language) Attr {
 	return func(t TwiML) {
-		t.SetOption("language", string(l))
+		t.SetAttr(AttrLanguage, string(l))
 	}
 }
 
-func Loop(n int) SayOption {
+func Loop(n int) Attr {
 	return func(t TwiML) {
-		t.SetOption("loop", strconv.Itoa(n))
+		t.SetAttr(AttrLoop, strconv.Itoa(n))
 	}
 }

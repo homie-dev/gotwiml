@@ -5,14 +5,20 @@ import (
 )
 
 type (
+	// TwiML is base interface
 	TwiML interface {
-		Append(TwiML)
+		Append(TwiML) TwiML
 		Nest(TwiML) TwiML
 		ToXML() (string, error)
 		SetText(text string) TwiML
-		SetOption(key, value string) TwiML
+		SetAttr(key, value string) TwiML
 	}
-	// TwiML is base struct
+
+	// TwiML is Embed Interface
+	EmbedTwiML interface {
+		getTwiML() TwiML
+	}
+
 	twiML struct {
 		XMLName xml.Name
 		Text    string     `xml:",chardata"`
@@ -21,17 +27,26 @@ type (
 	}
 )
 
-// New creates a new TwiML instance
-func New(tagName string) TwiML {
-	t := &twiML{
+func new(tagName string) *twiML {
+	return &twiML{
 		XMLName: xml.Name{Local: tagName},
 	}
-	return t
+}
+
+// New creates a new TwiML instance
+func New(tagName string) TwiML {
+	return new(tagName)
 }
 
 // Append a child element to this element
-func (t *twiML) Append(v TwiML) {
-	t.Verbs = append(t.Verbs, v)
+func (t *twiML) Append(v TwiML) TwiML {
+	if ex, ok := v.(EmbedTwiML); ok {
+		t.Verbs = append(t.Verbs, ex.getTwiML())
+	}
+	if _, ok := v.(*twiML); ok {
+		t.Verbs = append(t.Verbs, v)
+	}
+	return t
 }
 
 // Nest a child element to this element and returning the newly created element
@@ -63,8 +78,8 @@ func (t *twiML) MarshalIndent(prefix string, indent string) ([]byte, error) {
 	return xml.MarshalIndent(t, prefix, indent)
 }
 
-// SetOption adds key-value attributes to the generated xml
-func (t *twiML) SetOption(key, value string) TwiML {
+// SetAttr adds key-value attributes to the generated xml
+func (t *twiML) SetAttr(key, value string) TwiML {
 	t.Attrs = append(t.Attrs, xml.Attr{
 		Name: xml.Name{Local: key}, Value: value,
 	})
