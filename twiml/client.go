@@ -1,8 +1,8 @@
 package twiml
 
 import (
-	"gotwiml/twiml/const/client"
-	"gotwiml/twiml/const/http"
+	"github.com/homie-dev/gotwiml/twiml/const/client"
+	"github.com/homie-dev/gotwiml/twiml/const/http"
 )
 
 type (

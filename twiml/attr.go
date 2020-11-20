@@ -3,7 +3,7 @@ package twiml
 import (
 	"strconv"
 
-	"gotwiml/twiml/const/dial"
+	"github.com/homie-dev/gotwiml/twiml/const/dial"
 )
 
 type Attr func(TwiML)

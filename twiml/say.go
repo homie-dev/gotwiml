@@ -3,7 +3,7 @@ package twiml
 import (
 	"strconv"
 
-	"gotwiml/twiml/const/say"
+	"github.com/homie-dev/gotwiml/twiml/const/say"
 )
 
 func Voice(v say.Voice) Attr {

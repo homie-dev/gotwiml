@@ -5,4 +5,4 @@ $(goimports):
 	go get golang.org/x/tools/cmd/goimports
 
 fmt:
-	$(goimports) -w -local gotwiml .
+	$(goimports) -w -local github.com/homie-dev/gotwiml .
