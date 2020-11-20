@@ -9,6 +9,7 @@ type (
 	TwiML interface {
 		Append(TwiML) TwiML
 		Nest(TwiML) TwiML
+		Marshal() ([]byte, error)
 		ToXML() (string, error)
 		SetText(text string) TwiML
 		SetAttr(key, value string) TwiML
