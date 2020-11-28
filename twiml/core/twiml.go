@@ -1,86 +1,87 @@
-package twiml
+package core
 
 import (
 	"encoding/xml"
 )
 
 type (
-	// TwiML is base interface
-	TwiML interface {
-		Append(TwiML) TwiML
-		Nest(TwiML) TwiML
+	// XMLer is base interface
+	XMLer interface {
+		Append(XMLer) XMLer
+		Nest(XMLer) XMLer
 		Marshal() ([]byte, error)
 		ToXML() (string, error)
-		SetText(text string) TwiML
-		SetAttr(key, value string) TwiML
+		SetText(text string) XMLer
+		SetAttr(key, value string) XMLer
 	}
 
-	// TwiML is Embed Interface
-	EmbedTwiML interface {
-		getTwiML() TwiML
+	// EmbedXMLer is Embed Interface
+	EmbedXMLer interface {
+		GetEmbedXML() XMLer
 	}
 
-	twiML struct {
+	// XML is base xml
+	XML struct {
 		XMLName xml.Name
 		Text    string     `xml:",chardata"`
 		Attrs   []xml.Attr `xml:",attr"`
-		Verbs   []TwiML
+		Verbs   []XMLer
 	}
 )
 
-func new(tagName string) *twiML {
-	return &twiML{
+func NewCoreXML(tagName string) *XML {
+	return &XML{
 		XMLName: xml.Name{Local: tagName},
 	}
 }
 
-// New creates a new TwiML instance
-func New(tagName string) TwiML {
-	return new(tagName)
+// New creates a new XMLer instance
+func NewXML(tagName string) XMLer {
+	return NewCoreXML(tagName)
 }
 
 // Append a child element to this element
-func (t *twiML) Append(v TwiML) TwiML {
-	if ex, ok := v.(EmbedTwiML); ok {
-		t.Verbs = append(t.Verbs, ex.getTwiML())
+func (t *XML) Append(v XMLer) XMLer {
+	if ex, ok := v.(EmbedXMLer); ok {
+		t.Verbs = append(t.Verbs, ex.GetEmbedXML())
 	}
-	if _, ok := v.(*twiML); ok {
+	if _, ok := v.(*XML); ok {
 		t.Verbs = append(t.Verbs, v)
 	}
 	return t
 }
 
 // Nest a child element to this element and returning the newly created element
-func (t *twiML) Nest(v TwiML) TwiML {
+func (t *XML) Nest(v XMLer) XMLer {
 	t.Append(v)
 	return v
 }
 
 // ToXML returns XML String with XML declaration
-func (t *twiML) ToXML() (string, error) {
+func (t *XML) ToXML() (string, error) {
 	x, err := t.String()
 	return xml.Header + x, err
 }
 
 // String returns XML String
-func (t *twiML) String() (string, error) {
+func (t *XML) String() (string, error) {
 	//s, err := t.Marshal()
 	s, err := t.MarshalIndent("", " ")
 	return string(s), err
 }
 
 // Marshal returns XML Byte Slice
-func (t *twiML) Marshal() ([]byte, error) {
+func (t *XML) Marshal() ([]byte, error) {
 	return xml.Marshal(t)
 }
 
 // MarshalIndent returns XML Byte Slice with prefix and indent
-func (t *twiML) MarshalIndent(prefix string, indent string) ([]byte, error) {
+func (t *XML) MarshalIndent(prefix string, indent string) ([]byte, error) {
 	return xml.MarshalIndent(t, prefix, indent)
 }
 
 // SetAttr adds key-value attributes to the generated xml
-func (t *twiML) SetAttr(key, value string) TwiML {
+func (t *XML) SetAttr(key, value string) XMLer {
 	t.Attrs = append(t.Attrs, xml.Attr{
 		Name: xml.Name{Local: key}, Value: value,
 	})
@@ -88,7 +89,7 @@ func (t *twiML) SetAttr(key, value string) TwiML {
 }
 
 // SetText sets body text of xml element
-func (t *twiML) SetText(text string) TwiML {
+func (t *XML) SetText(text string) XMLer {
 	t.Text = text
 	return t
 }

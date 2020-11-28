@@ -1,35 +1,40 @@
 package twiml
 
+import (
+	"github.com/homie-dev/gotwiml/twiml/attr"
+	"github.com/homie-dev/gotwiml/twiml/core"
+)
+
 type (
 	Dial interface {
-		Number(phoneNumber string, attrs ...Attr) Dial
-		Client(identifier string, attrs ...Attr) Dial
+		Number(phoneNumber string, attrs ...attr.Option) Dial
+		Client(identifier string, attrs ...attr.Option) Dial
 
-		TwiML
-		EmbedTwiML
+		core.XMLer
+		core.EmbedXMLer
 	}
 
 	dialImpl struct {
-		*twiML
+		*core.XML
 	}
 )
 
 // NewDial creates a <Dial> element
-func NewDial(options ...Attr) Dial {
-	t := new(verbDial)
+func NewDial(options ...attr.Option) Dial {
+	t := core.NewCoreXML(verbDial)
 	for _, o := range options {
 		o(t)
 	}
-	return &dialImpl{twiML: t}
+	return &dialImpl{XML: t}
 }
 
-func (d *dialImpl) getTwiML() TwiML {
-	return d.twiML
+func (d *dialImpl) GetEmbedXML() core.XMLer {
+	return d.XML
 }
 
 // Client appends <Client> element
-func (d *dialImpl) Client(identifier string, attrs ...Attr) Dial {
-	t := New(nounClient).SetText(identifier)
+func (d *dialImpl) Client(identifier string, attrs ...attr.Option) Dial {
+	t := core.NewXML(nounClient).SetText(identifier)
 	for _, a := range attrs {
 		a(t)
 	}
@@ -38,8 +43,8 @@ func (d *dialImpl) Client(identifier string, attrs ...Attr) Dial {
 }
 
 // Number appends <Number> element
-func (d *dialImpl) Number(phoneNumber string, attrs ...Attr) Dial {
-	t := New(nounNumber).SetText(phoneNumber)
+func (d *dialImpl) Number(phoneNumber string, attrs ...attr.Option) Dial {
+	t := core.NewXML(nounNumber).SetText(phoneNumber)
 	for _, a := range attrs {
 		a(t)
 	}
