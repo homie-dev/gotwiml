@@ -6,3 +6,7 @@ $(goimports):
 
 fmt:
 	$(goimports) -w -local github.com/homie-dev/gotwiml .
+
+.PHONY: test
+test:
+	go test -p 20 $(shell go list ./...)

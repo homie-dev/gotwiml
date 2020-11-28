@@ -29,4 +29,8 @@ const (
 	nounSim        = "Sim"
 	nounSip        = "Sip"
 	nounPrompt     = "Prompt"
+
+	connectNounAutopilot = "Autopilot"
+	connectNounRoom      = "Room"
+	connectNounStream    = "Stream"
 )
