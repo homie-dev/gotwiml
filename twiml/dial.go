@@ -6,15 +6,15 @@ import (
 )
 
 type (
+	// Dial is <Dial> twiml verb
 	Dial interface {
 		Number(phoneNumber string, attrs ...attr.Option) Dial
 		Client(identifier string, attrs ...attr.Option) Dial
-
 		core.XMLer
 		core.EmbedXMLer
 	}
 
-	dialImpl struct {
+	dial struct {
 		*core.XML
 	}
 )
@@ -25,15 +25,16 @@ func NewDial(options ...attr.Option) Dial {
 	for _, o := range options {
 		o(t)
 	}
-	return &dialImpl{XML: t}
+	return &dial{XML: t}
 }
 
-func (d *dialImpl) GetEmbedXML() core.XMLer {
+// GetEmbedXML returns embed xml
+func (d *dial) GetEmbedXML() core.XMLer {
 	return d.XML
 }
 
 // Client appends <Client> element
-func (d *dialImpl) Client(identifier string, attrs ...attr.Option) Dial {
+func (d *dial) Client(identifier string, attrs ...attr.Option) Dial {
 	t := core.NewXML(nounClient).SetText(identifier)
 	for _, a := range attrs {
 		a(t)
@@ -43,7 +44,7 @@ func (d *dialImpl) Client(identifier string, attrs ...attr.Option) Dial {
 }
 
 // Number appends <Number> element
-func (d *dialImpl) Number(phoneNumber string, attrs ...attr.Option) Dial {
+func (d *dial) Number(phoneNumber string, attrs ...attr.Option) Dial {
 	t := core.NewXML(nounNumber).SetText(phoneNumber)
 	for _, a := range attrs {
 		a(t)

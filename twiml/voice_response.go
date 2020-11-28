@@ -10,10 +10,10 @@ type (
 	VoiceResponse interface {
 		Say(message string, attrs ...attr.Option) VoiceResponse
 		Dial(number string, attrs ...attr.Option) VoiceResponse
-		NestDial(attrs ...attr.Option) Dial
 		core.XMLer
 		core.EmbedXMLer
 	}
+
 	voiceResponse struct {
 		*core.XML
 	}
@@ -24,6 +24,7 @@ func NewVoiceResponse() VoiceResponse {
 	return &voiceResponse{XML: core.NewCoreXML(tagRoot)}
 }
 
+// GetEmbedXML returns embed xml
 func (v *voiceResponse) GetEmbedXML() core.XMLer {
 	return v.XML
 }
@@ -38,7 +39,7 @@ func (v *voiceResponse) Say(message string, options ...attr.Option) VoiceRespons
 	return v
 }
 
-// Dial creates a <Dial> element
+// Dial appends a <Dial> element
 func (v *voiceResponse) Dial(number string, options ...attr.Option) VoiceResponse {
 	t := core.NewXML(verbDial).SetText(number)
 	for _, o := range options {
@@ -46,9 +47,4 @@ func (v *voiceResponse) Dial(number string, options ...attr.Option) VoiceRespons
 	}
 	v.Append(t)
 	return v
-}
-func (v *voiceResponse) NestDial(attrs ...attr.Option) Dial {
-	t := NewDial(attrs...)
-	v.Append(t)
-	return t
 }
