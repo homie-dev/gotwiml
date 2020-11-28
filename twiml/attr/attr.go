@@ -15,6 +15,7 @@ import (
 type Option func(core.XMLer)
 
 const (
+	participantIdentity           = "participantIdentity"
 	voice                         = "voice"
 	language                      = "language"
 	loop                          = "loop"
@@ -166,6 +167,20 @@ func StatusCallback(url string) Option {
 // StatusCallbackEvent sets status call back url
 func StatusCallbackEvent(event status.CallbackEvent) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(statusCallback, url)
+		t.SetAttr(statusCallbackEvent, url)
+	}
+}
+
+// StatusCallbackMethod sets status call back method
+func StatusCallbackMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(statusCallbackMethod, string(v))
+	}
+}
+
+// ParticipantIdentity sets a unique identity on the incoming caller
+func ParticipantIdentity(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(participantIdentity, v)
 	}
 }

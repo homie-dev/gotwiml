@@ -1,9 +1,10 @@
 package twiml
 
 import (
-	"github.com/homie-dev/gotwiml/twiml/attr"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
+
+	"github.com/homie-dev/gotwiml/twiml/attr"
 )
 
 var _ = DescribeTable("generate <Connect> xml",

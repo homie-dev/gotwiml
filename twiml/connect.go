@@ -34,7 +34,6 @@ func (c *connect) GetEmbedXML() core.XMLer {
 	return c.XML
 }
 
-
 func (c *connect) Autopilot(AssistantSID string) Connect {
 	t := core.NewXML(connectNounAutopilot)
 	t.SetText(AssistantSID)
@@ -47,7 +46,7 @@ func (c *connect) Room(UniqueName string) Connect {
 	c.Append(t)
 	return c
 }
-func (c *connect) Stream(oo ...attr.Option) Connect  {
+func (c *connect) Stream(oo ...attr.Option) Connect {
 	t := core.NewXML(connectNounStream)
 	for _, o := range oo {
 		o(t)
