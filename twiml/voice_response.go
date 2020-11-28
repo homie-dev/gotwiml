@@ -8,8 +8,9 @@ import (
 type (
 	// VoiceResponse is <Response> XML for voice
 	VoiceResponse interface {
-		Say(message string, attrs ...attr.Option) VoiceResponse
 		Dial(number string, attrs ...attr.Option) VoiceResponse
+		AppendDial(Dial) VoiceResponse
+		Say(message string, attrs ...attr.Option) VoiceResponse
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -46,5 +47,10 @@ func (v *voiceResponse) Dial(number string, options ...attr.Option) VoiceRespons
 		o(t)
 	}
 	v.Append(t)
+	return v
+}
+
+func (v *voiceResponse) AppendDial(d Dial) VoiceResponse {
+	v.Append(d)
 	return v
 }
