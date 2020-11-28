@@ -10,7 +10,11 @@ type (
 		Append(XMLer) XMLer
 		Nest(XMLer) XMLer
 		Marshal() ([]byte, error)
+		String() (string, error)
 		ToXML() (string, error)
+		MarshalIndent(prefix string, indent string) ([]byte, error)
+		StringIndent(prefix string, indent string) (string, error)
+		ToXMLIndent(prefix string, indent string) (string, error)
 		SetText(text string) XMLer
 		SetAttr(key, value string) XMLer
 	}
@@ -63,10 +67,18 @@ func (t *XML) ToXML() (string, error) {
 	return xml.Header + x, err
 }
 
+func (t *XML) ToXMLIndent(prefix string, indent string) (string, error) {
+	x, err := t.StringIndent(prefix, indent)
+	return xml.Header + x, err
+}
+
 // String returns XML String
 func (t *XML) String() (string, error) {
-	//s, err := t.Marshal()
-	s, err := t.MarshalIndent("", " ")
+	s, err := t.Marshal()
+	return string(s), err
+}
+func (t *XML) StringIndent(prefix string, indent string) (string, error) {
+	s, err := t.MarshalIndent(prefix, indent)
 	return string(s), err
 }
 
