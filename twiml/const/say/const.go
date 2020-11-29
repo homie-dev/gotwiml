@@ -1,10 +1,12 @@
 package say
 
-type (
-	Voice    string
-	Language string
-)
+// Voice attribute constant type of <Say> element
+type Voice string
 
+// Language attribute constant type of <Say> element
+type Language string
+
+// <Say> attribution keys
 const (
 	Man                 = Voice("man")
 	Woman               = Voice("woman")

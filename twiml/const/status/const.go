@@ -1,9 +1,9 @@
 package status
 
-type (
-	CallbackEvent string
-)
+// CallbackEvent is callback event type
+type CallbackEvent string
 
+// CallBackEvent constants
 const (
 	CallbackInitiated CallbackEvent = "initiated"
 	CallbackRinging   CallbackEvent = "ringing"

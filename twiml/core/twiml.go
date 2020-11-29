@@ -33,13 +33,14 @@ type (
 	}
 )
 
+// NewCoreXML creates a new XML instance
 func NewCoreXML(tagName string) *XML {
 	return &XML{
 		XMLName: xml.Name{Local: tagName},
 	}
 }
 
-// New creates a new XMLer instance
+// NewXML creates a new XMLer instance
 func NewXML(tagName string) XMLer {
 	return NewCoreXML(tagName)
 }
@@ -67,6 +68,7 @@ func (t *XML) ToXML() (string, error) {
 	return xml.Header + x, err
 }
 
+// ToXMLIndent returns formatted XML String with XML declaration
 func (t *XML) ToXMLIndent(prefix string, indent string) (string, error) {
 	x, err := t.StringIndent(prefix, indent)
 	return xml.Header + x, err
@@ -77,6 +79,8 @@ func (t *XML) String() (string, error) {
 	s, err := t.Marshal()
 	return string(s), err
 }
+
+// StringIndent returns formatted XML String
 func (t *XML) StringIndent(prefix string, indent string) (string, error) {
 	s, err := t.MarshalIndent(prefix, indent)
 	return string(s), err

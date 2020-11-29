@@ -12,6 +12,7 @@ import (
 	"github.com/homie-dev/gotwiml/twiml/const/dial"
 )
 
+// Option is function to set XML attribute
 type Option func(core.XMLer)
 
 const (

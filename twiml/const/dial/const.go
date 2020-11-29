@@ -1,12 +1,20 @@
 package dial
 
 type (
-	RecordType                       string
+	// RecordType is record type
+	RecordType string
+
+	// RecordingStatusCallbackEventType is recording status callback event type
 	RecordingStatusCallbackEventType string
-	RingToneType                     string
-	TrimType                         string
+
+	// RingToneType is ring tone type
+	RingToneType string
+
+	// TrimType is record trim type
+	TrimType string
 )
 
+// <Dial> attribution keys
 const (
 	DoNotRecord           RecordType = "do-not-record"
 	RecordFromAnswer      RecordType = "record-from-answer"
