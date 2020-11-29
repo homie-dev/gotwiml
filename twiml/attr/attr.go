@@ -152,9 +152,9 @@ func Trim(tt dial.TrimType) Option {
 }
 
 // URL sets url
-func URL(url string) Option {
+func URL(v string) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(url, url)
+		t.SetAttr(url, v)
 	}
 }
 
@@ -168,7 +168,7 @@ func StatusCallback(url string) Option {
 // StatusCallbackEvent sets status call back url
 func StatusCallbackEvent(event status.CallbackEvent) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(statusCallbackEvent, url)
+		t.SetAttr(statusCallbackEvent, string(event))
 	}
 }
 
