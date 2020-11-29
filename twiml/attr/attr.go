@@ -17,6 +17,8 @@ type Option func(core.XMLer)
 
 const (
 	participantIdentity           = "participantIdentity"
+	name                          = "name"
+	value                         = "value"
 	voice                         = "voice"
 	language                      = "language"
 	loop                          = "loop"
@@ -38,6 +40,20 @@ const (
 	statusCallbackMethod          = "statusCallbackMethod"
 	statusCallbackEvent           = "statusCallbackEvent"
 )
+
+// Name sets voice to use
+func Name(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(name, v)
+	}
+}
+
+// Value sets voice to use
+func Value(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(value, v)
+	}
+}
 
 // Voice sets voice to use
 func Voice(v say.Voice) Option {

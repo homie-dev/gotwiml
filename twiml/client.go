@@ -10,6 +10,8 @@ import (
 type (
 	// Client is <Client> twiml verb
 	Client interface {
+		Identity(string) Client
+		Parameter(...attr.Option) Client
 		SetURL(url string) Client
 		SetMethod(method http.Method) Client
 		SetStatusCallbackEvent(event status.CallbackEvent) Client
@@ -36,6 +38,20 @@ func NewClient(options ...attr.Option) Client {
 // GetEmbedXML returns embed xml
 func (c *client) GetEmbedXML() core.XMLer {
 	return c.XML
+}
+
+func (c *client) Identity(v string) Client {
+	x := core.NewCoreXML(nounIdentity).SetText(v)
+	c.Append(x)
+	return c
+}
+func (c *client) Parameter(attrs ...attr.Option) Client {
+	x := core.NewCoreXML(nounParameter)
+	for _, a := range attrs {
+		a(x)
+	}
+	c.Append(x)
+	return c
 }
 
 // SetURL sets client url

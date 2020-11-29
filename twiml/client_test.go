@@ -1,11 +1,13 @@
 package twiml
 
 import (
-	"github.com/homie-dev/gotwiml/twiml/attr"
-	"github.com/homie-dev/gotwiml/twiml/const/status"
+	"net/http"
+
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
-	"net/http"
+
+	"github.com/homie-dev/gotwiml/twiml/attr"
+	"github.com/homie-dev/gotwiml/twiml/const/status"
 )
 
 var _ = DescribeTable("generate <Connect> xml",
@@ -19,5 +21,10 @@ var _ = DescribeTable("generate <Connect> xml",
 		attr.StatusCallbackEvent(status.CallbackInitiated),
 		attr.StatusCallback("http://callback.com"),
 		attr.StatusCallbackMethod(http.MethodPost),
-		), `<Client url="http://example.com" method="GET" statusCallbackEvent="initiated" statusCallback="http://callback.com" statusCallbackMethod="POST"></Client>`),
+	), `<Client url="http://example.com" method="GET" statusCallbackEvent="initiated" statusCallback="http://callback.com" statusCallbackMethod="POST"></Client>`),
+	Entry("append <Identity>", NewClient().
+		Identity("user-jane").
+		Parameter(attr.Name("FirstName"), attr.Value("Jane")).
+		Parameter(attr.Name("LastName"), attr.Value("Doe")),
+		`<Client><Identity>user-jane</Identity><Parameter name="FirstName" value="Jane"></Parameter><Parameter name="LastName" value="Doe"></Parameter></Client>`),
 )

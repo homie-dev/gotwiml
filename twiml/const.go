@@ -30,6 +30,9 @@ const (
 	nounSip        = "Sip"
 	nounPrompt     = "Prompt"
 
+	nounIdentity  = "Identity"
+	nounParameter = "Parameter"
+
 	connectNounAutopilot = "Autopilot"
 	connectNounRoom      = "Room"
 	connectNounStream    = "Stream"
