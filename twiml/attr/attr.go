@@ -3,16 +3,16 @@ package attr
 import (
 	"strconv"
 
-	"github.com/homie-dev/gotwiml/twiml/const/record"
-	"github.com/homie-dev/gotwiml/twiml/const/region"
-	"github.com/homie-dev/gotwiml/twiml/const/ring"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
 
-	"github.com/homie-dev/gotwiml/twiml/const/beep"
-	"github.com/homie-dev/gotwiml/twiml/const/http"
-	"github.com/homie-dev/gotwiml/twiml/const/jitter"
-	"github.com/homie-dev/gotwiml/twiml/const/say"
-	"github.com/homie-dev/gotwiml/twiml/const/status"
-	"github.com/homie-dev/gotwiml/twiml/const/trim"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/http"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/say"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/status"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/trim"
 	"github.com/homie-dev/gotwiml/twiml/core"
 )
 

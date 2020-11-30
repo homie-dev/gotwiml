@@ -2,8 +2,8 @@ package twiml
 
 import (
 	"github.com/homie-dev/gotwiml/twiml/attr"
-	"github.com/homie-dev/gotwiml/twiml/const/http"
-	"github.com/homie-dev/gotwiml/twiml/const/status"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/http"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/status"
 	"github.com/homie-dev/gotwiml/twiml/core"
 )
 
