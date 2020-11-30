@@ -10,6 +10,8 @@ type (
 	Dial interface {
 		Number(phoneNumber string, attrs ...attr.Option) Dial
 		Client(identifier string, attrs ...attr.Option) Dial
+		AppendClient(Client) Dial
+		Conference(roomName string, attrs ...attr.Option) Dial
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -52,3 +54,9 @@ func (d *dial) Number(phoneNumber string, attrs ...attr.Option) Dial {
 	d.Append(t)
 	return d
 }
+
+func (d *dial) AppendClient(c Client) Dial {
+	d.Append(c)
+	return d
+}
+func (d *dial) Conference(roomName string, attrs ...attr.Option) Dial { return d }

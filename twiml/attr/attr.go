@@ -3,201 +3,291 @@ package attr
 import (
 	"strconv"
 
+	"github.com/homie-dev/gotwiml/twiml/const/record"
+	"github.com/homie-dev/gotwiml/twiml/const/region"
+	"github.com/homie-dev/gotwiml/twiml/const/ring"
+
+	"github.com/homie-dev/gotwiml/twiml/const/beep"
 	"github.com/homie-dev/gotwiml/twiml/const/http"
+	"github.com/homie-dev/gotwiml/twiml/const/jitter"
 	"github.com/homie-dev/gotwiml/twiml/const/say"
 	"github.com/homie-dev/gotwiml/twiml/const/status"
-
+	"github.com/homie-dev/gotwiml/twiml/const/trim"
 	"github.com/homie-dev/gotwiml/twiml/core"
-
-	"github.com/homie-dev/gotwiml/twiml/const/dial"
 )
 
 // Option is function to set XML attribute
 type Option func(core.XMLer)
 
 const (
-	participantIdentity           = "participantIdentity"
-	name                          = "name"
-	value                         = "value"
-	voice                         = "voice"
-	language                      = "language"
-	loop                          = "loop"
-	record                        = "record"
-	action                        = "action"
-	answerOnBridge                = "answerOnBridge"
-	hangupOnStar                  = "hangupOnStar"
-	callerID                      = "callerId"
-	method                        = "method"
-	recordingStatusCallback       = "recordingStatusCallback"
-	recordingStatusCallbackMethod = "recordingStatusCallbackMethod"
-	recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
-	ringTone                      = "ringTone"
-	timeLimit                     = "timeLimit"
-	timeout                       = "timeout"
-	trim                          = "trim"
-	url                           = "url"
-	statusCallback                = "statusCallback"
-	statusCallbackMethod          = "statusCallbackMethod"
-	statusCallbackEvent           = "statusCallbackEvent"
+	_action                        = "action"
+	_answerOnBridge                = "answerOnBridge"
+	_beep                          = "beep"
+	_callerID                      = "callerId"
+	_coach                         = "coach"
+	_endConferenceOnExit           = "endConferenceOnExit"
+	_hangupOnStar                  = "hangupOnStar"
+	_jitterBufferSize              = "jitterBufferSize"
+	_language                      = "language"
+	_loop                          = "loop"
+	_maxParticipants               = "maxParticipants"
+	_method                        = "method"
+	_muted                         = "muted"
+	_name                          = "name"
+	_participantIdentity           = "participantIdentity"
+	_participantLabel              = "participantLabel"
+	_record                        = "record"
+	_recordingStatusCallback       = "recordingStatusCallback"
+	_recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
+	_recordingStatusCallbackMethod = "recordingStatusCallbackMethod"
+	_region                        = "region"
+	_ringTone                      = "ringTone"
+	_startConferenceOnEnter        = "startConferenceOnEnter"
+	_statusCallback                = "statusCallback"
+	_statusCallbackEvent           = "statusCallbackEvent"
+	_statusCallbackMethod          = "statusCallbackMethod"
+	_timeLimit                     = "timeLimit"
+	_timeout                       = "timeout"
+	_trim                          = "trim"
+	_url                           = "url"
+	_value                         = "value"
+	_voice                         = "voice"
+	_waitMethod                    = "waitMethod"
+	_waitURL                       = "waitUrl"
 )
 
-// Name sets voice to use
-func Name(v string) Option {
+// Action is action url
+func Action(v string) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(name, v)
+		t.SetAttr(_action, v)
 	}
 }
 
-// Value sets voice to use
-func Value(v string) Option {
+// AnswerOnBridge preserve the ringing behavior of the inbound call until the Dialed call picks up
+func AnswerOnBridge(v bool) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(value, v)
+		t.SetAttr(_answerOnBridge, strconv.FormatBool(v))
 	}
 }
 
-// Voice sets voice to use
-func Voice(v say.Voice) Option {
+// Beep sets to Play beep when joining
+func Beep(v beep.Type) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(voice, string(v))
+		t.SetAttr(_beep, string(v))
+	}
+}
+
+// CallerID is Caller ID to display
+func CallerID(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_callerID, v)
+	}
+}
+
+// Coach sets to accept a call SID
+func Coach(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_coach, v)
+	}
+}
+
+// EndConferenceOnExit sets to accept a call SID
+func EndConferenceOnExit(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_endConferenceOnExit, strconv.FormatBool(v))
+	}
+}
+
+// HangupOnStar Hangup call on star press
+func HangupOnStar(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_hangupOnStar, strconv.FormatBool(v))
+	}
+}
+
+// JitterBufferSize sets  jitter buffer behavior for a conference participant
+func JitterBufferSize(v jitter.BufferSize) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_jitterBufferSize, string(v))
 	}
 }
 
 // Language sets message language
 func Language(v say.Language) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(language, string(v))
+		t.SetAttr(_language, string(v))
 	}
 }
 
 // Loop sets times to loop message
 func Loop(v say.Language) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(loop, string(v))
+		t.SetAttr(_loop, string(v))
 	}
 }
 
-// Record sets record type of the call
-func Record(r dial.RecordType) Option {
+// MaxParticipants sets maximum number of participants
+func MaxParticipants(v int) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(record, string(r))
+		t.SetAttr(_maxParticipants, strconv.Itoa(v))
 	}
 }
 
-// Action is action url
-func Action(url string) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(action, url)
-	}
-}
-
-// AnswerOnBridge preserve the ringing behavior of the inbound call until the Dialed call picks up
-func AnswerOnBridge(b bool) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(answerOnBridge, strconv.FormatBool(b))
-	}
-}
-
-// HangupOnStar Hangup call on star press
-func HangupOnStar(b bool) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(hangupOnStar, strconv.FormatBool(b))
-	}
-}
-
-// CallerID is Caller ID to display
-func CallerID(id string) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(callerID, id)
-	}
-}
-
-// Method is http method with request action url
+// Method sets http method with request action url
 func Method(v http.Method) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(method, string(v))
+		t.SetAttr(_method, string(v))
 	}
 }
 
-// RecordingStatusCallback is Recording status callback URL
-func RecordingStatusCallback(url string) Option {
+// Muted sets to join the conference muted
+func Muted(v bool) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(recordingStatusCallback, url)
+		t.SetAttr(_muted, strconv.FormatBool(v))
 	}
 }
 
-// RecordingStatusCallbackMethod is Recording status callback URL method
-func RecordingStatusCallbackMethod(method http.Method) Option {
+// Name sets the name of the custom parameter
+func Name(v string) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(recordingStatusCallbackMethod, string(method))
-	}
-}
-
-// RecordingStatusCallbackEvent is Recording status callback URL method
-func RecordingStatusCallbackEvent(method string) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(recordingStatusCallbackEvent, method)
-	}
-}
-
-// RingTone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
-func RingTone(r dial.RingToneType) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(ringTone, string(r))
-	}
-}
-
-// TimeLimit is Max time length
-func TimeLimit(sec int) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(timeLimit, strconv.Itoa(sec))
-	}
-}
-
-// Timeout is Time to wait for answer
-func Timeout(sec int) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(timeout, strconv.Itoa(sec))
-	}
-}
-
-// Trim is Time to wait for answer
-func Trim(tt dial.TrimType) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(trim, string(tt))
-	}
-}
-
-// URL sets url
-func URL(v string) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(url, v)
-	}
-}
-
-// StatusCallback sets status call back url
-func StatusCallback(url string) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(statusCallback, url)
-	}
-}
-
-// StatusCallbackEvent sets status call back url
-func StatusCallbackEvent(event status.CallbackEvent) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(statusCallbackEvent, string(event))
-	}
-}
-
-// StatusCallbackMethod sets status call back method
-func StatusCallbackMethod(v http.Method) Option {
-	return func(t core.XMLer) {
-		t.SetAttr(statusCallbackMethod, string(v))
+		t.SetAttr(_name, v)
 	}
 }
 
 // ParticipantIdentity sets a unique identity on the incoming caller
 func ParticipantIdentity(v string) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(participantIdentity, v)
+		t.SetAttr(_participantIdentity, v)
+	}
+}
+
+// ParticipantLabel sets a label for the conference participant
+func ParticipantLabel(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_participantLabel, v)
+	}
+}
+
+// Record sets record type of the call
+func Record(r record.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_record, string(r))
+	}
+}
+
+// RecordingStatusCallback is Recording status callback URL
+func RecordingStatusCallback(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_recordingStatusCallback, v)
+	}
+}
+
+// RecordingStatusCallbackEvent is Recording status callback URL method
+func RecordingStatusCallbackEvent(v record.StatusCallbackEventType) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_recordingStatusCallbackEvent, string(v))
+	}
+}
+
+// RecordingStatusCallbackMethod is Recording status callback URL method
+func RecordingStatusCallbackMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_recordingStatusCallbackMethod, string(v))
+	}
+}
+
+// Region sets the region where Twilio should mix the conference
+func Region(v region.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_region, string(v))
+	}
+}
+
+// RingTone sets to allow you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+func RingTone(v ring.ToneType) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_ringTone, string(v))
+	}
+}
+
+// StartConferenceOnEnter sets to start the conference on enter
+func StartConferenceOnEnter(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_startConferenceOnEnter, strconv.FormatBool(v))
+	}
+}
+
+// StatusCallback sets status call back url
+func StatusCallback(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_statusCallback, v)
+	}
+}
+
+// StatusCallbackEvent sets status call back url
+func StatusCallbackEvent(v status.CallbackEvent) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_statusCallbackEvent, string(v))
+	}
+}
+
+// StatusCallbackMethod sets status call back method
+func StatusCallbackMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_statusCallbackMethod, string(v))
+	}
+}
+
+// TimeLimit is Max time length
+func TimeLimit(sec int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_timeLimit, strconv.Itoa(sec))
+	}
+}
+
+// Timeout is Time to wait for answer
+func Timeout(sec int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_timeout, strconv.Itoa(sec))
+	}
+}
+
+// Trim is Time to wait for answer
+func Trim(v trim.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_trim, string(v))
+	}
+}
+
+// URL sets url
+func URL(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_url, v)
+	}
+}
+
+// Value sets the value of the custom parameter
+func Value(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_value, v)
+	}
+}
+
+// Voice sets voice to use
+func Voice(v say.Voice) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_voice, string(v))
+	}
+}
+// WaitMethod sets wait URL method
+func WaitMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_waitMethod, string(v))
+	}
+}
+// WaitURL sets wait URL
+func WaitURL(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_waitURL, string(v))
 	}
 }

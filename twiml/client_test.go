@@ -10,7 +10,7 @@ import (
 	"github.com/homie-dev/gotwiml/twiml/const/status"
 )
 
-var _ = DescribeTable("generate <Connect> xml",
+var _ = DescribeTable("generate <Client> xml",
 	func(c Client, xml string) {
 		Expect(c.String()).To(Equal(xml))
 	},
