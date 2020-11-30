@@ -13,7 +13,7 @@ const (
 	FromRinging     Type = "record-from-ringing"
 	FromAnswerDual  Type = "record-from-answer-dual"
 	FromRingingDual Type = "record-from-ringing-dual"
-	FromStart Type = "record-from-start"
+	FromStart       Type = "record-from-start"
 )
 
 // recording status callback event

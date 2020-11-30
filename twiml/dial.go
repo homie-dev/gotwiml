@@ -37,21 +37,13 @@ func (d *dial) GetEmbedXML() core.XMLer {
 
 // Client appends <Client> element
 func (d *dial) Client(identifier string, attrs ...attr.Option) Dial {
-	t := core.NewXML(nounClient).SetText(identifier)
-	for _, a := range attrs {
-		a(t)
-	}
-	d.Append(t)
+	d.Append(NewClient(identifier, attrs...))
 	return d
 }
 
 // Number appends <Number> element
 func (d *dial) Number(phoneNumber string, attrs ...attr.Option) Dial {
-	t := core.NewXML(nounNumber).SetText(phoneNumber)
-	for _, a := range attrs {
-		a(t)
-	}
-	d.Append(t)
+	d.Append(NewNumber(phoneNumber, attrs...))
 	return d
 }
 
@@ -59,4 +51,7 @@ func (d *dial) AppendClient(c Client) Dial {
 	d.Append(c)
 	return d
 }
-func (d *dial) Conference(roomName string, attrs ...attr.Option) Dial { return d }
+func (d *dial) Conference(roomName string, attrs ...attr.Option) Dial {
+	d.Append(NewConference(roomName, attrs...))
+	return d
+}

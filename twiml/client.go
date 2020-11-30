@@ -27,8 +27,9 @@ type (
 )
 
 // NewClient creates <Client> element
-func NewClient(options ...attr.Option) Client {
+func NewClient(identifier string, options ...attr.Option) Client {
 	c := core.NewCoreXML(nounClient)
+	c.SetText(identifier)
 	for _, o := range options {
 		o(c)
 	}

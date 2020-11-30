@@ -1,16 +1,18 @@
 package twiml
 
 import (
-	"github.com/homie-dev/gotwiml/twiml/attr"
-	"github.com/homie-dev/gotwiml/twiml/const/beep"
-	"github.com/homie-dev/gotwiml/twiml/const/jitter"
-	"github.com/homie-dev/gotwiml/twiml/const/record"
-	"github.com/homie-dev/gotwiml/twiml/const/region"
-	"github.com/homie-dev/gotwiml/twiml/const/status"
-	"github.com/homie-dev/gotwiml/twiml/const/trim"
+	"net/http"
+
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
-	"net/http"
+
+	"github.com/homie-dev/gotwiml/twiml/attr"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/status"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/trim"
 )
 
 var _ = DescribeTable("generate <Conference> xml",

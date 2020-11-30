@@ -2,6 +2,7 @@ package attr
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
@@ -23,6 +24,7 @@ const (
 	_action                        = "action"
 	_answerOnBridge                = "answerOnBridge"
 	_beep                          = "beep"
+	_byoc                          = "byoc"
 	_callerID                      = "callerId"
 	_coach                         = "coach"
 	_endConferenceOnExit           = "endConferenceOnExit"
@@ -42,6 +44,7 @@ const (
 	_recordingStatusCallbackMethod = "recordingStatusCallbackMethod"
 	_region                        = "region"
 	_ringTone                      = "ringTone"
+	_sendDigits                    = "sendDigits"
 	_startConferenceOnEnter        = "startConferenceOnEnter"
 	_statusCallback                = "statusCallback"
 	_statusCallbackEvent           = "statusCallbackEvent"
@@ -74,6 +77,13 @@ func AnswerOnBridge(v bool) Option {
 func Beep(v beep.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_beep, string(v))
+	}
+}
+
+// BYOC sets byoc trunk SID
+func BYOC(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_byoc, v)
 	}
 }
 
@@ -210,6 +220,13 @@ func RingTone(v ring.ToneType) Option {
 	}
 }
 
+// SendDigits sets DTMF tones to play when the call is answered
+func SendDigits(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_sendDigits, v)
+	}
+}
+
 // StartConferenceOnEnter sets to start the conference on enter
 func StartConferenceOnEnter(v bool) Option {
 	return func(t core.XMLer) {
@@ -225,9 +242,13 @@ func StatusCallback(v string) Option {
 }
 
 // StatusCallbackEvent sets status call back url
-func StatusCallbackEvent(v status.CallbackEvent) Option {
+func StatusCallbackEvent(vv ...status.CallbackEvent) Option {
+	ss := make([]string, len(vv))
+	for i, v := range vv {
+		ss[i] = string(v)
+	}
 	return func(t core.XMLer) {
-		t.SetAttr(_statusCallbackEvent, string(v))
+		t.SetAttr(_statusCallbackEvent, strings.Join(ss, " "))
 	}
 }
 
@@ -279,12 +300,14 @@ func Voice(v say.Voice) Option {
 		t.SetAttr(_voice, string(v))
 	}
 }
+
 // WaitMethod sets wait URL method
 func WaitMethod(v http.Method) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_waitMethod, string(v))
 	}
 }
+
 // WaitURL sets wait URL
 func WaitURL(v http.Method) Option {
 	return func(t core.XMLer) {
