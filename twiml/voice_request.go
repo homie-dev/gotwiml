@@ -104,4 +104,14 @@ type (
 		RecordingSID   string
 		RecordingURL   string
 	}
+
+	// TODO
+	// EnqueueActionRequest provides
+	EnqueueActionRequest struct {
+	}
+
+	// TODO
+	// WaitURLRequest provides
+	WaitURLRequest struct {
+	}
 )

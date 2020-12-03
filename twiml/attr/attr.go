@@ -38,11 +38,13 @@ const (
 	_name                          = "name"
 	_participantIdentity           = "participantIdentity"
 	_participantLabel              = "participantLabel"
+	_postWorkActivitySID           = "postWorkActivitySid"
 	_record                        = "record"
 	_recordingStatusCallback       = "recordingStatusCallback"
 	_recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
 	_recordingStatusCallbackMethod = "recordingStatusCallbackMethod"
 	_region                        = "region"
+	_reservationSID                = "reservationSid"
 	_ringTone                      = "ringTone"
 	_sendDigits                    = "sendDigits"
 	_startConferenceOnEnter        = "startConferenceOnEnter"
@@ -57,6 +59,8 @@ const (
 	_voice                         = "voice"
 	_waitMethod                    = "waitMethod"
 	_waitURL                       = "waitUrl"
+	_waitURLMethod                 = "waitUrlMethod"
+	_workflowSID                   = "workflowSid"
 )
 
 // Action is action url
@@ -164,6 +168,13 @@ func Name(v string) Option {
 	}
 }
 
+// PostWorkActivitySID sets TaskRouter Activity SID
+func PostWorkActivitySID(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_postWorkActivitySID, v)
+	}
+}
+
 // ParticipantIdentity sets a unique identity on the incoming caller
 func ParticipantIdentity(v string) Option {
 	return func(t core.XMLer) {
@@ -210,6 +221,13 @@ func RecordingStatusCallbackMethod(v http.Method) Option {
 func Region(v region.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_region, string(v))
+	}
+}
+
+// ReservationSID sets TaskRouter Reservation SID
+func ReservationSID(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_reservationSID, v)
 	}
 }
 
@@ -312,5 +330,19 @@ func WaitMethod(v http.Method) Option {
 func WaitURL(v http.Method) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_waitURL, string(v))
+	}
+}
+
+// WaitURLMethod sets wait URL method
+func WaitURLMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_waitURLMethod, string(v))
+	}
+}
+
+// WorkflowSID sets wait URL method
+func WorkflowSID(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_workflowSID, v)
 	}
 }
