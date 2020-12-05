@@ -39,6 +39,7 @@ const (
 	_input                         = "input"
 	_jitterBufferSize              = "jitterBufferSize"
 	_language                      = "language"
+	_length                        = "length"
 	_loop                          = "loop"
 	_maxParticipants               = "maxParticipants"
 	_method                        = "method"
@@ -185,6 +186,13 @@ func JitterBufferSize(v jitter.BufferSize) Option {
 func Language(v language.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_language, string(v))
+	}
+}
+
+// Length sets length in seconds to pause
+func Length(v int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_length, strconv.Itoa(v))
 	}
 }
 
