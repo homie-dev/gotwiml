@@ -34,10 +34,8 @@ func (c *connect) GetEmbedXML() core.XMLer {
 	return c.XML
 }
 
-func (c *connect) Autopilot(AssistantSID string) Connect {
-	t := core.NewXML(connectNounAutopilot)
-	t.SetText(AssistantSID)
-	c.Append(t)
+func (c *connect) Autopilot(name string) Connect {
+	c.Append(NewAutopilot(name))
 	return c
 }
 func (c *connect) Room(UniqueName string) Connect {
