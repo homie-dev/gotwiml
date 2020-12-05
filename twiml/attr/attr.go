@@ -38,6 +38,7 @@ const (
 	_name                          = "name"
 	_participantIdentity           = "participantIdentity"
 	_participantLabel              = "participantLabel"
+	_password                      = "password"
 	_postWorkActivitySID           = "postWorkActivitySid"
 	_record                        = "record"
 	_recordingStatusCallback       = "recordingStatusCallback"
@@ -55,6 +56,7 @@ const (
 	_timeout                       = "timeout"
 	_trim                          = "trim"
 	_url                           = "url"
+	_username                      = "username"
 	_value                         = "value"
 	_voice                         = "voice"
 	_waitMethod                    = "waitMethod"
@@ -189,6 +191,13 @@ func ParticipantLabel(v string) Option {
 	}
 }
 
+// Password sets SIP password
+func Password(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_password, v)
+	}
+}
+
 // Record sets record type of the call
 func Record(r record.Type) Option {
 	return func(t core.XMLer) {
@@ -302,6 +311,13 @@ func Trim(v trim.Type) Option {
 func URL(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_url, v)
+	}
+}
+
+// UserName sets SIP user name
+func UserName(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_username, v)
 	}
 }
 
