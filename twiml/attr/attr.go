@@ -4,14 +4,17 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
-	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
-	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/voice"
 
 	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/http"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/input"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
-	"github.com/homie-dev/gotwiml/twiml/attr/const/say"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/language"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/speech"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/status"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/trim"
 	"github.com/homie-dev/gotwiml/twiml/core"
@@ -22,13 +25,18 @@ type Option func(core.XMLer)
 
 const (
 	_action                        = "action"
+	_actionOnEmptyResult           = "actionOnEmptyResult"
 	_answerOnBridge                = "answerOnBridge"
 	_beep                          = "beep"
 	_byoc                          = "byoc"
 	_callerID                      = "callerId"
 	_coach                         = "coach"
 	_endConferenceOnExit           = "endConferenceOnExit"
+	_enhanced                      = "enhanced"
+	_finishOnKey                   = "finishOnKey"
 	_hangupOnStar                  = "hangupOnStar"
+	_hints                         = "hints"
+	_input                         = "input"
 	_jitterBufferSize              = "jitterBufferSize"
 	_language                      = "language"
 	_loop                          = "loop"
@@ -36,10 +44,14 @@ const (
 	_method                        = "method"
 	_muted                         = "muted"
 	_name                          = "name"
+	_numDigits                     = "numDigits"
+	_partialResultCallback         = "partialResultCallback"
+	_partialResultCallbackMethod   = "partialResultCallbackMethod"
 	_participantIdentity           = "participantIdentity"
 	_participantLabel              = "participantLabel"
 	_password                      = "password"
 	_postWorkActivitySID           = "postWorkActivitySid"
+	_profanityFilter               = "profanityFilter"
 	_record                        = "record"
 	_recordingStatusCallback       = "recordingStatusCallback"
 	_recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
@@ -48,6 +60,8 @@ const (
 	_reservationSID                = "reservationSid"
 	_ringTone                      = "ringTone"
 	_sendDigits                    = "sendDigits"
+	_speechModel                   = "speechModel"
+	_speechTimeout                 = "speechTimeout"
 	_startConferenceOnEnter        = "startConferenceOnEnter"
 	_statusCallback                = "statusCallback"
 	_statusCallbackEvent           = "statusCallbackEvent"
@@ -65,10 +79,17 @@ const (
 	_workflowSID                   = "workflowSid"
 )
 
-// Action is action url
+// Action sets action url
 func Action(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_action, v)
+	}
+}
+
+// ActionOnEmptyResult sets to force webhook to the action URL event if there is no input
+func ActionOnEmptyResult(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_actionOnEmptyResult, strconv.FormatBool(v))
 	}
 }
 
@@ -114,6 +135,20 @@ func EndConferenceOnExit(v bool) Option {
 	}
 }
 
+// Enhanced sets to use enhanced speech model
+func Enhanced(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_enhanced, strconv.FormatBool(v))
+	}
+}
+
+// FinishOnKey sets finish gather on key
+func FinishOnKey(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_finishOnKey, v)
+	}
+}
+
 // HangupOnStar Hangup call on star press
 func HangupOnStar(v bool) Option {
 	return func(t core.XMLer) {
@@ -121,7 +156,25 @@ func HangupOnStar(v bool) Option {
 	}
 }
 
-// JitterBufferSize sets  jitter buffer behavior for a conference participant
+// Hints sets speech recognition hints
+func Hints(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_hints, v)
+	}
+}
+
+// Input sets input type Twilio should accept
+func Input(vv ...input.Type) Option {
+	ss := make([]string, len(vv))
+	for i, v := range vv {
+		ss[i] = string(v)
+	}
+	return func(t core.XMLer) {
+		t.SetAttr(_input, strings.Join(ss, " "))
+	}
+}
+
+// JitterBufferSize sets jitter buffer behavior for a conference participant
 func JitterBufferSize(v jitter.BufferSize) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_jitterBufferSize, string(v))
@@ -129,14 +182,14 @@ func JitterBufferSize(v jitter.BufferSize) Option {
 }
 
 // Language sets message language
-func Language(v say.Language) Option {
+func Language(v language.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_language, string(v))
 	}
 }
 
 // Loop sets times to loop message
-func Loop(v say.Language) Option {
+func Loop(v language.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_loop, string(v))
 	}
@@ -170,10 +223,24 @@ func Name(v string) Option {
 	}
 }
 
-// PostWorkActivitySID sets TaskRouter Activity SID
-func PostWorkActivitySID(v string) Option {
+// NumDigits sets number of digits to collect
+func NumDigits(v int) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(_postWorkActivitySID, v)
+		t.SetAttr(_numDigits, strconv.Itoa(v))
+	}
+}
+
+// PartialResultCallback sets partial result callback URL
+func PartialResultCallback(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_partialResultCallback, v)
+	}
+}
+
+// PartialResultCallbackMethod sets partial result callback URL method
+func PartialResultCallbackMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_partialResultCallbackMethod, string(v))
 	}
 }
 
@@ -195,6 +262,20 @@ func ParticipantLabel(v string) Option {
 func Password(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_password, v)
+	}
+}
+
+// PostWorkActivitySID sets TaskRouter Activity SID
+func PostWorkActivitySID(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_postWorkActivitySID, v)
+	}
+}
+
+// ProfanityFilter sets profanity filter on speech
+func ProfanityFilter(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_profanityFilter, strconv.FormatBool(v))
 	}
 }
 
@@ -251,6 +332,20 @@ func RingTone(v ring.ToneType) Option {
 func SendDigits(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_sendDigits, v)
+	}
+}
+
+// SpeechTimeout sets time to wait to gather speech input and it should be either auto or a positive integer
+func SpeechTimeout(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_speechTimeout, v)
+	}
+}
+
+// SpeechModel sets specify the model that is best suited for your use case
+func SpeechModel(v speech.Model) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_speechModel, string(v))
 	}
 }
 
@@ -329,7 +424,7 @@ func Value(v string) Option {
 }
 
 // Voice sets voice to use
-func Voice(v say.Voice) Option {
+func Voice(v voice.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_voice, string(v))
 	}

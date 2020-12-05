@@ -1,0 +1,42 @@
+package language
+
+// Type is language type
+type Type string
+
+// language types
+const (
+	Arb     = Type("arb")
+	CaEs    = Type("ca-ES")
+	CyGb    = Type("cy-GB")
+	DaDk    = Type("da-DK")
+	DeDe    = Type("de-DE")
+	EnAu    = Type("en-AU")
+	EnCa    = Type("en-CA")
+	EnGb    = Type("en-GB")
+	EnGbWls = Type("en-GB-WLS")
+	EnIn    = Type("en-IN")
+	EnUs    = Type("en-US")
+	EsEs    = Type("es-ES")
+	EsMx    = Type("es-MX")
+	EsUs    = Type("es-US")
+	FiFi    = Type("fi-FI")
+	FrCa    = Type("fr-CA")
+	FrFr    = Type("fr-FR")
+	HiIn    = Type("hi-IN")
+	IsIs    = Type("is-IS")
+	ItIt    = Type("it-IT")
+	JaJp    = Type("ja-JP")
+	KoKr    = Type("ko-KR")
+	NbNo    = Type("nb-NO")
+	NlNl    = Type("nl-NL")
+	PlPl    = Type("pl-PL")
+	PtBr    = Type("pt-BR")
+	PtPt    = Type("pt-PT")
+	RoRo    = Type("ro-RO")
+	RuRu    = Type("ru-RU")
+	SvSe    = Type("sv-SE")
+	TrTr    = Type("tr-TR")
+	ZhCn    = Type("zh-CN")
+	ZhHk    = Type("zh-HK")
+	ZhTw    = Type("zh-TW")
+)

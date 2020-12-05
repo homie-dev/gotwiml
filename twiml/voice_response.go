@@ -39,11 +39,7 @@ func (v *voiceResponse) AppendConnect(c Connect) VoiceResponse {
 
 // Say appends a <Say> element and applies attributes
 func (v *voiceResponse) Say(message string, options ...attr.Option) VoiceResponse {
-	t := core.NewXML(verbSay).SetText(message)
-	for _, o := range options {
-		o(t)
-	}
-	v.Append(t)
+	v.Append(NewSay(message, options...))
 	return v
 }
 
