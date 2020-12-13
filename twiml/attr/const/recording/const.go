@@ -1,4 +1,4 @@
-package record
+package recording
 
 // Type is record type
 type Type string

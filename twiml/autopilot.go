@@ -7,6 +7,7 @@ import (
 type (
 	// Autopilot is <Autopilot> twiml verb
 	Autopilot interface {
+		SetName(string) Autopilot
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -26,4 +27,10 @@ func NewAutopilot(name string) Autopilot {
 // GetEmbedXML returns embed xml
 func (c *autopilot) GetEmbedXML() core.XMLer {
 	return c.XML
+}
+
+// SetName sets name
+func (c *autopilot) SetName(name string) Autopilot {
+	c.SetText(name)
+	return c
 }

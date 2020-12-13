@@ -14,7 +14,7 @@ import (
 	"github.com/homie-dev/gotwiml/twiml/attr/const/language"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/payment"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/reason"
-	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/recording"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/speech"
@@ -455,7 +455,7 @@ func Reason(r reason.Type) Option {
 }
 
 // Record sets record type of the call
-func Record(r record.Type) Option {
+func Record(r recording.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_record, string(r))
 	}
@@ -469,7 +469,7 @@ func RecordingStatusCallback(v string) Option {
 }
 
 // RecordingStatusCallbackEvent is Recording status callback URL method
-func RecordingStatusCallbackEvent(v record.StatusCallbackEventType) Option {
+func RecordingStatusCallbackEvent(v recording.StatusCallbackEventType) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_recordingStatusCallbackEvent, string(v))
 	}
