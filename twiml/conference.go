@@ -19,7 +19,7 @@ type (
 
 // NewConference creates a <Conference> element
 func NewConference(roomName string, options ...attr.Option) Conference {
-	t := core.NewCoreXML(nounConference)
+	t := core.NewCoreXML(tagConference)
 	t.SetText(roomName)
 	for _, o := range options {
 		o(t)

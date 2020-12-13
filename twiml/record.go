@@ -19,7 +19,7 @@ type (
 
 // NewRecord creates a <Record> element
 func NewRecord(options ...attr.Option) Record {
-	t := core.NewCoreXML(verbRecord)
+	t := core.NewCoreXML(tagRecord)
 	for _, o := range options {
 		o(t)
 	}

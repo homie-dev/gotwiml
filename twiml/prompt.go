@@ -20,7 +20,7 @@ type (
 
 // NewPrompt creates a <Prompt> element
 func NewPrompt(options ...attr.Option) Prompt {
-	t := core.NewCoreXML(nounPrompt)
+	t := core.NewCoreXML(tagPrompt)
 	for _, o := range options {
 		o(t)
 	}

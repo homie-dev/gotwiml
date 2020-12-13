@@ -19,7 +19,7 @@ type (
 
 // NewReject creates a <Reject> element
 func NewReject(options ...attr.Option) Reject {
-	t := core.NewCoreXML(verbReject)
+	t := core.NewCoreXML(tagReject)
 	for _, o := range options {
 		o(t)
 	}

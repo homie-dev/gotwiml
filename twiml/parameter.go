@@ -19,7 +19,7 @@ type (
 
 // NewParameter creates a <Parameter> element
 func NewParameter(options ...attr.Option) Parameter {
-	t := core.NewCoreXML(nounParameter)
+	t := core.NewCoreXML(tagParameter)
 	for _, o := range options {
 		o(t)
 	}

@@ -20,7 +20,7 @@ type (
 
 // NewSiprec creates <Siprec> element
 func NewSiprec(options ...attr.Option) Siprec {
-	c := core.NewCoreXML(verbSiprec)
+	c := core.NewCoreXML(tagSiprec)
 	for _, o := range options {
 		o(c)
 	}
@@ -34,7 +34,7 @@ func (e *siprec) GetEmbedXML() core.XMLer {
 
 // Parameter appends <Parameter> element with options
 func (e *siprec) Parameter(attrs ...attr.Option) Siprec {
-	x := core.NewCoreXML(nounParameter)
+	x := core.NewCoreXML(tagParameter)
 	for _, a := range attrs {
 		a(x)
 	}

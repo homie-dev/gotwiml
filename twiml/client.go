@@ -23,7 +23,7 @@ type (
 
 // NewClient creates <Client> element
 func NewClient(identifier string, options ...attr.Option) Client {
-	c := core.NewCoreXML(nounClient)
+	c := core.NewCoreXML(tagClient)
 	c.SetText(identifier)
 	for _, o := range options {
 		o(c)

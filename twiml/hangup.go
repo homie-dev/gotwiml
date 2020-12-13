@@ -18,7 +18,7 @@ type (
 
 // NewHangup creates a <Hangup> element
 func NewHangup() Hangup {
-	t := core.NewCoreXML(verbHangup)
+	t := core.NewCoreXML(tagHangup)
 	return &hangup{XML: t}
 }
 

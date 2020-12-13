@@ -23,7 +23,7 @@ type (
 
 // NewVoiceResponse creates a new voice response instance
 func NewVoiceResponse() VoiceResponse {
-	return &voiceResponse{XML: core.NewCoreXML(tagRoot)}
+	return &voiceResponse{XML: core.NewCoreXML(tagResponse)}
 }
 
 // GetEmbedXML returns embed xml
@@ -45,7 +45,7 @@ func (v *voiceResponse) Say(message string, options ...attr.Option) VoiceRespons
 
 // Dial appends a <Dial> element and applies attributes
 func (v *voiceResponse) Dial(number string, options ...attr.Option) VoiceResponse {
-	t := core.NewXML(verbDial).SetText(number)
+	t := core.NewXML(tagDial).SetText(number)
 	for _, o := range options {
 		o(t)
 	}

@@ -21,7 +21,7 @@ type (
 
 // NewPay creates a <Pay> element
 func NewPay(options ...attr.Option) Pay {
-	t := core.NewCoreXML(verbPay)
+	t := core.NewCoreXML(tagPay)
 	for _, o := range options {
 		o(t)
 	}

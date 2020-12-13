@@ -18,7 +18,7 @@ type (
 
 // NewLeave creates a <Leave> element
 func NewLeave() Leave {
-	t := core.NewCoreXML(verbLeave)
+	t := core.NewCoreXML(tagLeave)
 	return &leave{XML: t}
 }
 

@@ -19,7 +19,7 @@ type (
 
 // NewRedirect creates a <Redirect> element
 func NewRedirect(url string, options ...attr.Option) Redirect {
-	t := core.NewCoreXML(verbRedirect)
+	t := core.NewCoreXML(tagRedirect)
 	t.SetText(url)
 	for _, o := range options {
 		o(t)

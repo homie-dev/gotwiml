@@ -21,7 +21,7 @@ type (
 
 // NewStart creates <Start> element
 func NewStart(options ...attr.Option) Start {
-	c := core.NewCoreXML(verbStart)
+	c := core.NewCoreXML(tagStart)
 	for _, o := range options {
 		o(c)
 	}

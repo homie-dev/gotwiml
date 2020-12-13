@@ -19,7 +19,7 @@ type (
 
 // NewSip creates a <Sip> element
 func NewSip(uri string, options ...attr.Option) Sip {
-	t := core.NewCoreXML(nounSip)
+	t := core.NewCoreXML(tagSip)
 	t.SetText(uri)
 	for _, o := range options {
 		o(t)

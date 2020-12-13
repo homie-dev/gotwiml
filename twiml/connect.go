@@ -22,7 +22,7 @@ type (
 
 // NewConnect creates a <Connect> element
 func NewConnect(options ...attr.Option) Connect {
-	t := core.NewCoreXML(verbConnect)
+	t := core.NewCoreXML(tagConnect)
 	for _, o := range options {
 		o(t)
 	}
@@ -39,7 +39,7 @@ func (c *connect) Autopilot(name string) Connect {
 	return c
 }
 func (c *connect) Room(UniqueName string) Connect {
-	t := core.NewXML(connectNounRoom)
+	t := core.NewXML(tagRoom)
 	t.SetText(UniqueName)
 	c.Append(t)
 	return c

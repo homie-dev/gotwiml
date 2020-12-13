@@ -19,7 +19,7 @@ type (
 
 // NewIdentity creates a <Identity> element
 func NewIdentity(clientIdentity string) Identity {
-	t := core.NewCoreXML(nounIdentity)
+	t := core.NewCoreXML(tagIdentity)
 	t.SetText(clientIdentity)
 	return &identity{XML: t}
 }

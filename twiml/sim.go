@@ -18,7 +18,7 @@ type (
 
 // NewSim creates a <Sim> element
 func NewSim(sid string) Sim {
-	t := core.NewCoreXML(nounSim)
+	t := core.NewCoreXML(tagSim)
 	t.SetText(sid)
 	return &sim{XML: t}
 }

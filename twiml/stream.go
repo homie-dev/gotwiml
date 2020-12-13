@@ -19,7 +19,7 @@ type (
 
 // NewStream creates a <Stream> element
 func NewStream(options ...attr.Option) Stream {
-	t := core.NewCoreXML(verbStream)
+	t := core.NewCoreXML(tagStream)
 	for _, o := range options {
 		o(t)
 	}

@@ -34,7 +34,7 @@ type (
 
 // NewDial creates a <Dial> element with options
 func NewDial(options ...attr.Option) Dial {
-	t := core.NewCoreXML(verbDial)
+	t := core.NewCoreXML(tagDial)
 	for _, o := range options {
 		o(t)
 	}

@@ -19,7 +19,7 @@ type (
 
 // NewAutopilot creates a <Autopilot> element
 func NewAutopilot(name string) Autopilot {
-	t := core.NewCoreXML(verbAutopilot)
+	t := core.NewCoreXML(tagAutopilot)
 	t.SetText(name)
 	return &autopilot{XML: t}
 }

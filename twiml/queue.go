@@ -19,7 +19,7 @@ type (
 
 // NewQueue creates a <Queue> element
 func NewQueue(queueName string, options ...attr.Option) Queue {
-	t := core.NewCoreXML(nounQueue)
+	t := core.NewCoreXML(tagQueue)
 	t.SetText(queueName)
 	for _, o := range options {
 		o(t)

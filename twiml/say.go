@@ -19,7 +19,7 @@ type (
 
 // NewSay creates a <Say> element
 func NewSay(message string, options ...attr.Option) Say {
-	t := core.NewCoreXML(verbSay)
+	t := core.NewCoreXML(tagSay)
 	t.SetText(message)
 	for _, o := range options {
 		o(t)

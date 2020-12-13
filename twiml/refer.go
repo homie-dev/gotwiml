@@ -21,7 +21,7 @@ type (
 
 // NewRefer creates a <Refer> element
 func NewRefer(options ...attr.Option) Refer {
-	t := core.NewCoreXML(verbRefer)
+	t := core.NewCoreXML(tagRefer)
 	for _, o := range options {
 		o(t)
 	}

@@ -19,7 +19,7 @@ type (
 
 // NewPlay creates a <Play> element
 func NewPlay(url string, options ...attr.Option) Play {
-	t := core.NewCoreXML(verbPlay)
+	t := core.NewCoreXML(tagPlay)
 	t.SetText(url)
 	for _, o := range options {
 		o(t)

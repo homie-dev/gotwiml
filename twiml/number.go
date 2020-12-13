@@ -19,7 +19,7 @@ type (
 
 // NewNumber creates a <Number> element
 func NewNumber(phoneNumber string, options ...attr.Option) Number {
-	t := core.NewCoreXML(nounNumber)
+	t := core.NewCoreXML(tagNumber)
 	t.SetText(phoneNumber)
 	for _, o := range options {
 		o(t)

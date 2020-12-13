@@ -20,7 +20,7 @@ type (
 
 // NewGather creates a <Gather> element
 func NewGather(options ...attr.Option) Gather {
-	t := core.NewCoreXML(verbGather)
+	t := core.NewCoreXML(tagGather)
 	for _, o := range options {
 		o(t)
 	}

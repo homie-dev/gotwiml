@@ -19,7 +19,7 @@ type (
 
 // NewPause creates a <Pause> element
 func NewPause(options ...attr.Option) Pause {
-	t := core.NewCoreXML(verbPause)
+	t := core.NewCoreXML(tagPause)
 	for _, o := range options {
 		o(t)
 	}
