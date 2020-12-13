@@ -19,6 +19,7 @@ const (
 	verbReject    = "Reject"
 	verbSay       = "Say"
 	verbSiprec    = "Siprec"
+	verbStart     = "Start"
 	verbStream    = "Stream"
 
 	nounNumber     = "Number"

@@ -13,6 +13,7 @@ import (
 	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/language"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/payment"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/reason"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
@@ -39,6 +40,7 @@ const (
 	_cardType                      = "cardType"
 	_chargeAmount                  = "chargeAmount"
 	_coach                         = "coach"
+	_connectorName                 = "connectorName"
 	_currency                      = "currency"
 	_description                   = "description"
 	_digits                        = "digits"
@@ -73,6 +75,7 @@ const (
 	_postalCode                    = "postalCode"
 	_postWorkActivitySID           = "postWorkActivitySid"
 	_profanityFilter               = "profanityFilter"
+	_reason                        = "reason"
 	_record                        = "record"
 	_recordingStatusCallback       = "recordingStatusCallback"
 	_recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
@@ -91,6 +94,7 @@ const (
 	_timeLimit                     = "timeLimit"
 	_timeout                       = "timeout"
 	_tokenType                     = "tokenType"
+	_track                         = "track"
 	_transcribe                    = "transcribe"
 	_transcribeCallback            = "transcribeCallback"
 	_trim                          = "trim"
@@ -187,6 +191,13 @@ func ChargeAmount(v string) Option {
 func Coach(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_coach, v)
+	}
+}
+
+// ConnectorName sets unique name for Connector
+func ConnectorName(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_connectorName, v)
 	}
 }
 
@@ -436,6 +447,13 @@ func ProfanityFilter(v bool) Option {
 	}
 }
 
+// Reason sets rejection reason
+func Reason(r reason.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_reason, string(r))
+	}
+}
+
 // Record sets record type of the call
 func Record(r record.Type) Option {
 	return func(t core.XMLer) {
@@ -563,6 +581,13 @@ func Timeout(sec int) Option {
 func TokenType(v token.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_tokenType, string(v))
+	}
+}
+
+// Track sets track to be streamed to remote service
+func Track(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_track, v)
 	}
 }
 
