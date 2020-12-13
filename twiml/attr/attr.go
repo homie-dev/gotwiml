@@ -4,19 +4,22 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/homie-dev/gotwiml/twiml/attr/const/voice"
-
+	"github.com/homie-dev/gotwiml/twiml/attr/const/bank"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/card"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/http"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/input"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/language"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/payment"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/record"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/region"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/ring"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/speech"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/status"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/token"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/trim"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/voice"
 	"github.com/homie-dev/gotwiml/twiml/core"
 )
 
@@ -27,10 +30,14 @@ const (
 	_action                        = "action"
 	_actionOnEmptyResult           = "actionOnEmptyResult"
 	_answerOnBridge                = "answerOnBridge"
+	_bankAccountType               = "bankAccountType"
 	_beep                          = "beep"
 	_byoc                          = "byoc"
 	_callerID                      = "callerId"
+	_chargeAmount                  = "chargeAmount"
 	_coach                         = "coach"
+	_currency                      = "currency"
+	_description                   = "description"
 	_endConferenceOnExit           = "endConferenceOnExit"
 	_enhanced                      = "enhanced"
 	_finishOnKey                   = "finishOnKey"
@@ -41,8 +48,10 @@ const (
 	_language                      = "language"
 	_length                        = "length"
 	_loop                          = "loop"
+	_maxAttempts                   = "maxAttempts"
 	_maxParticipants               = "maxParticipants"
 	_method                        = "method"
+	_minPostalCodeLength           = "minPostalCodeLength"
 	_muted                         = "muted"
 	_name                          = "name"
 	_numDigits                     = "numDigits"
@@ -50,7 +59,10 @@ const (
 	_partialResultCallbackMethod   = "partialResultCallbackMethod"
 	_participantIdentity           = "participantIdentity"
 	_participantLabel              = "participantLabel"
+	_paymentConnector              = "paymentConnector"
+	_paymentMethod                 = "paymentMethod"
 	_password                      = "password"
+	_postalCode                    = "postalCode"
 	_postWorkActivitySID           = "postWorkActivitySid"
 	_profanityFilter               = "profanityFilter"
 	_record                        = "record"
@@ -61,6 +73,7 @@ const (
 	_reservationSID                = "reservationSid"
 	_ringTone                      = "ringTone"
 	_sendDigits                    = "sendDigits"
+	_securityCode                  = "securityCode"
 	_speechModel                   = "speechModel"
 	_speechTimeout                 = "speechTimeout"
 	_startConferenceOnEnter        = "startConferenceOnEnter"
@@ -69,9 +82,11 @@ const (
 	_statusCallbackMethod          = "statusCallbackMethod"
 	_timeLimit                     = "timeLimit"
 	_timeout                       = "timeout"
+	_tokenType                     = "tokenType"
 	_trim                          = "trim"
 	_url                           = "url"
 	_username                      = "username"
+	_validCardTypes                = "validCardTypes"
 	_value                         = "value"
 	_voice                         = "voice"
 	_waitMethod                    = "waitMethod"
@@ -101,6 +116,13 @@ func AnswerOnBridge(v bool) Option {
 	}
 }
 
+// BankAccountType sets bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking
+func BankAccountType(v bank.AccountType) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_bankAccountType, string(v))
+	}
+}
+
 // Beep sets to Play beep when joining
 func Beep(v beep.Type) Option {
 	return func(t core.XMLer) {
@@ -115,10 +137,17 @@ func BYOC(v string) Option {
 	}
 }
 
-// CallerID is Caller ID to display
+// CallerID sets Caller ID to display
 func CallerID(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_callerID, v)
+	}
+}
+
+// ChargeAmount sets amount to process. If value is greater than 0 then make the payment else create a payment token
+func ChargeAmount(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_chargeAmount, v)
 	}
 }
 
@@ -126,6 +155,20 @@ func CallerID(v string) Option {
 func Coach(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_coach, v)
+	}
+}
+
+// Currency sets currency of the amount attribute
+func Currency(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_currency, v)
+	}
+}
+
+// Description sets details regarding the payment
+func Description(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_description, v)
 	}
 }
 
@@ -203,10 +246,24 @@ func Loop(v language.Type) Option {
 	}
 }
 
+// MaxAttempts sets maximum number of allowed retries when gathering input
+func MaxAttempts(v int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_maxAttempts, strconv.Itoa(v))
+	}
+}
+
 // MaxParticipants sets maximum number of participants
 func MaxParticipants(v int) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_maxParticipants, strconv.Itoa(v))
+	}
+}
+
+// MinPostalCodeLength sets prompt for minimum postal code length
+func MinPostalCodeLength(v int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_minPostalCodeLength, strconv.Itoa(v))
 	}
 }
 
@@ -266,10 +323,31 @@ func ParticipantLabel(v string) Option {
 	}
 }
 
+// PaymentConnector sets unique name for payment connector
+func PaymentConnector(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_paymentConnector, v)
+	}
+}
+
+// PaymentMethod sets payment method to be used. defaults to credit-card
+func PaymentMethod(v payment.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_paymentMethod, string(v))
+	}
+}
+
 // Password sets SIP password
 func Password(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_password, v)
+	}
+}
+
+// PostalCode sets prompt for postal code and it should be true/false or default postal code
+func PostalCode(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_postalCode, v)
 	}
 }
 
@@ -343,6 +421,13 @@ func SendDigits(v string) Option {
 	}
 }
 
+// SecurityCode sets prompt for security code
+func SecurityCode(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_securityCode, strconv.FormatBool(v))
+	}
+}
+
 // SpeechTimeout sets time to wait to gather speech input and it should be either auto or a positive integer
 func SpeechTimeout(v string) Option {
 	return func(t core.XMLer) {
@@ -403,6 +488,13 @@ func Timeout(sec int) Option {
 	}
 }
 
+// TokenType sets type of token
+func TokenType(v token.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_tokenType, string(v))
+	}
+}
+
 // Trim is Time to wait for answer
 func Trim(v trim.Type) Option {
 	return func(t core.XMLer) {
@@ -421,6 +513,13 @@ func URL(v string) Option {
 func UserName(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_username, v)
+	}
+}
+
+// ValidCardTypes sets comma separated accepted card types
+func ValidCardTypes(v card.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_validCardTypes, string(v))
 	}
 }
 
