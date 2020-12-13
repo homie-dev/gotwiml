@@ -8,21 +8,20 @@ import (
 type (
 	// Dial is <Dial> twiml verb
 	Dial interface {
-		Number(phoneNumber string, options ...attr.Option) Dial
 		Client(identifier string, options ...attr.Option) Dial
-		Conference(roomName string, options ...attr.Option) Dial
-		Queue(queueName string, options ...attr.Option) Dial
-		Enqueue(queueName string, options ...attr.Option) Dial
-		Sim(sid string) Dial
-		Sip(uri string, options ...attr.Option) Dial
-
-		AppendNumber(Number) Dial
 		AppendClient(Client) Dial
-		AppendConference(Client) Dial
+		Conference(roomName string, options ...attr.Option) Dial
+		AppendConference(Conference) Dial
+		Number(phoneNumber string, options ...attr.Option) Dial
+		AppendNumber(Number) Dial
+		Queue(queueName string, options ...attr.Option) Dial
 		AppendQueue(Queue) Dial
-		AppendEnqueue(Enqueue) Dial
+		Sim(sid string) Dial
 		AppendSim(Sim) Dial
+		Sip(uri string, options ...attr.Option) Dial
 		AppendSip(Sip) Dial
+		Enqueue(queueName string, options ...attr.Option) Dial
+		AppendEnqueue(Enqueue) Dial
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -76,7 +75,7 @@ func (d *dial) Conference(roomName string, attrs ...attr.Option) Dial {
 }
 
 // Conference appends <Conference> element
-func (d *dial) AppendConference(c Client) Dial {
+func (d *dial) AppendConference(c Conference) Dial {
 	d.Append(c)
 	return d
 }

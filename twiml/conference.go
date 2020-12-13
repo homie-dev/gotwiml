@@ -8,6 +8,7 @@ import (
 type (
 	// Conference is <Conference> twiml verb
 	Conference interface {
+		SetName(roomName string) Conference
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -30,4 +31,10 @@ func NewConference(roomName string, options ...attr.Option) Conference {
 // GetEmbedXML returns embed xml
 func (c *conference) GetEmbedXML() core.XMLer {
 	return c.XML
+}
+
+// SetName sets room name
+func (c *conference) SetName(roomName string) Conference {
+	c.SetText(roomName)
+	return c
 }

@@ -8,6 +8,7 @@ import (
 type (
 	// Enqueue is <Enqueue> twiml verb
 	Enqueue interface {
+		SetQueueName(queueName string) Enqueue
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -30,4 +31,10 @@ func NewEnqueue(queueName string, options ...attr.Option) Enqueue {
 // GetEmbedXML returns embed xml
 func (c *enqueue) GetEmbedXML() core.XMLer {
 	return c.XML
+}
+
+// SetQueueName sets queue name
+func (c *enqueue) SetQueueName(queueName string) Enqueue {
+	c.SetText(queueName)
+	return c
 }

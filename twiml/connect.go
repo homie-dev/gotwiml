@@ -9,8 +9,11 @@ type (
 	// Connect is <Connect> twiml verb
 	Connect interface {
 		Autopilot(AssistantSID string) Connect
+		AppendAutopilot(Autopilot) Connect
 		Room(UniqueName string) Connect
+		AppendRoom(Room) Connect
 		Stream(...attr.Option) Connect
+		AppendStream(Stream) Connect
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -34,21 +37,38 @@ func (c *connect) GetEmbedXML() core.XMLer {
 	return c.XML
 }
 
+// Autopilot appends <Autopilot> element
 func (c *connect) Autopilot(name string) Connect {
 	c.Append(NewAutopilot(name))
 	return c
 }
+
+// Room appends <Room> element
 func (c *connect) Room(UniqueName string) Connect {
-	t := core.NewXML(tagRoom)
-	t.SetText(UniqueName)
-	c.Append(t)
+	c.Append(NewRoom(UniqueName))
 	return c
 }
+
+// Stream appends <Stream> element
 func (c *connect) Stream(oo ...attr.Option) Connect {
-	t := core.NewXML(connectNounStream)
-	for _, o := range oo {
-		o(t)
-	}
-	c.Append(t)
+	c.Append(NewStream(oo...))
+	return c
+}
+
+// AppendAutopilot appends <Autopilot> element
+func (c *connect) AppendAutopilot(e Autopilot) Connect {
+	c.Append(e)
+	return c
+}
+
+// AppendRoom appends <Room> element
+func (c *connect) AppendRoom(e Room) Connect {
+	c.Append(e)
+	return c
+}
+
+// AppendStream appends <Stream> element
+func (c *connect) AppendStream(e Stream) Connect {
+	c.Append(e)
 	return c
 }

@@ -6,6 +6,7 @@ const (
 	tagConference = "Conference"
 	tagConnect    = "Connect"
 	tagDial       = "Dial"
+	tagEcho       = "Echo"
 	tagEnqueue    = "Enqueue"
 	tagGather     = "Gather"
 	tagHangup     = "Hangup"
