@@ -7,6 +7,7 @@ import (
 	"github.com/homie-dev/gotwiml/twiml/attr/const/bank"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/card"
+	"github.com/homie-dev/gotwiml/twiml/attr/const/for_"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/http"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/input"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/jitter"
@@ -30,17 +31,21 @@ const (
 	_action                        = "action"
 	_actionOnEmptyResult           = "actionOnEmptyResult"
 	_answerOnBridge                = "answerOnBridge"
+	_attempt                       = "attempt"
 	_bankAccountType               = "bankAccountType"
 	_beep                          = "beep"
 	_byoc                          = "byoc"
 	_callerID                      = "callerId"
+	_cardType                      = "cardType"
 	_chargeAmount                  = "chargeAmount"
 	_coach                         = "coach"
 	_currency                      = "currency"
 	_description                   = "description"
 	_endConferenceOnExit           = "endConferenceOnExit"
 	_enhanced                      = "enhanced"
+	_errorType                     = "errorType"
 	_finishOnKey                   = "finishOnKey"
+	_for                           = "for"
 	_hangupOnStar                  = "hangupOnStar"
 	_hints                         = "hints"
 	_input                         = "input"
@@ -116,6 +121,17 @@ func AnswerOnBridge(v bool) Option {
 	}
 }
 
+// Attempt sets name of the payment source data element
+func Attempt(vv ...int) Option {
+	ss := make([]string, len(vv))
+	for i, v := range vv {
+		ss[i] = strconv.Itoa(v)
+	}
+	return func(t core.XMLer) {
+		t.SetAttr(_attempt, strings.Join(ss, " "))
+	}
+}
+
 // BankAccountType sets bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking
 func BankAccountType(v bank.AccountType) Option {
 	return func(t core.XMLer) {
@@ -141,6 +157,17 @@ func BYOC(v string) Option {
 func CallerID(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_callerID, v)
+	}
+}
+
+// CardType sets type of the credit card
+func CardType(vv ...card.Type) Option {
+	ss := make([]string, len(vv))
+	for i, v := range vv {
+		ss[i] = string(v)
+	}
+	return func(t core.XMLer) {
+		t.SetAttr(_cardType, strings.Join(ss, " "))
 	}
 }
 
@@ -186,10 +213,28 @@ func Enhanced(v bool) Option {
 	}
 }
 
+// ErrorType sets type of error
+func ErrorType(vv ...payment.ErrorType) Option {
+	ss := make([]string, len(vv))
+	for i, v := range vv {
+		ss[i] = string(v)
+	}
+	return func(t core.XMLer) {
+		t.SetAttr(_errorType, strings.Join(ss, " "))
+	}
+}
+
 // FinishOnKey sets finish gather on key
 func FinishOnKey(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_finishOnKey, v)
+	}
+}
+
+// For sets finish gather on key
+func For(v for_.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_for, string(v))
 	}
 }
 

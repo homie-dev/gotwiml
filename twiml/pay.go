@@ -8,6 +8,8 @@ import (
 type (
 	// Pay is <Pay> twiml verb
 	Pay interface {
+		Prompt(options ...attr.Option) Pay
+		AppendPrompt(Prompt) Pay
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -27,6 +29,18 @@ func NewPay(options ...attr.Option) Pay {
 }
 
 // GetEmbedXML returns embed xml
-func (g *pay) GetEmbedXML() core.XMLer {
-	return g.XML
+func (e *pay) GetEmbedXML() core.XMLer {
+	return e.XML
+}
+
+// Prompt appends <Prompt> element with options
+func (e *pay) Prompt(options ...attr.Option) Pay {
+	e.Append(NewPrompt(options...))
+	return e
+}
+
+// AppendPrompt appends <Prompt> element
+func (e *pay) AppendPrompt(p Prompt) Pay {
+	e.Append(p)
+	return e
 }
