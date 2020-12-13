@@ -41,6 +41,7 @@ const (
 	_coach                         = "coach"
 	_currency                      = "currency"
 	_description                   = "description"
+	_digits                        = "digits"
 	_endConferenceOnExit           = "endConferenceOnExit"
 	_enhanced                      = "enhanced"
 	_errorType                     = "errorType"
@@ -196,6 +197,13 @@ func Currency(v string) Option {
 func Description(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_description, v)
+	}
+}
+
+// Digits sets play DTMF tones for digits
+func Digits(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_digits, v)
 	}
 }
 
