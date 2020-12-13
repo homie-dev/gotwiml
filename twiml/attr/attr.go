@@ -55,6 +55,7 @@ const (
 	_length                        = "length"
 	_loop                          = "loop"
 	_maxAttempts                   = "maxAttempts"
+	_maxLength                     = "maxLength"
 	_maxParticipants               = "maxParticipants"
 	_method                        = "method"
 	_minPostalCodeLength           = "minPostalCodeLength"
@@ -68,6 +69,7 @@ const (
 	_paymentConnector              = "paymentConnector"
 	_paymentMethod                 = "paymentMethod"
 	_password                      = "password"
+	_playBeep                      = "playBeep"
 	_postalCode                    = "postalCode"
 	_postWorkActivitySID           = "postWorkActivitySid"
 	_profanityFilter               = "profanityFilter"
@@ -89,6 +91,8 @@ const (
 	_timeLimit                     = "timeLimit"
 	_timeout                       = "timeout"
 	_tokenType                     = "tokenType"
+	_transcribe                    = "transcribe"
+	_transcribeCallback            = "transcribeCallback"
 	_trim                          = "trim"
 	_url                           = "url"
 	_username                      = "username"
@@ -306,6 +310,13 @@ func MaxAttempts(v int) Option {
 	}
 }
 
+// MaxLength sets max time to record in seconds
+func MaxLength(v int) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_maxLength, strconv.Itoa(v))
+	}
+}
+
 // MaxParticipants sets maximum number of participants
 func MaxParticipants(v int) Option {
 	return func(t core.XMLer) {
@@ -387,6 +398,13 @@ func PaymentConnector(v string) Option {
 func PaymentMethod(v payment.Method) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_paymentMethod, string(v))
+	}
+}
+
+// PlayBeep sets play beep
+func PlayBeep(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_playBeep, strconv.FormatBool(v))
 	}
 }
 
@@ -545,6 +563,20 @@ func Timeout(sec int) Option {
 func TokenType(v token.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_tokenType, string(v))
+	}
+}
+
+// Transcribe sets transcribe the recording
+func Transcribe(v bool) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_transcribe, strconv.FormatBool(v))
+	}
+}
+
+// TranscribeCallback sets transcribe callback URL
+func TranscribeCallbackURL(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_transcribeCallback, v)
 	}
 }
 
