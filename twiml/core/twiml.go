@@ -12,9 +12,9 @@ type (
 		Marshal() ([]byte, error)
 		String() (string, error)
 		ToXML() (string, error)
-		MarshalIndent(prefix string, indent string) ([]byte, error)
-		StringIndent(prefix string, indent string) (string, error)
-		ToXMLIndent(prefix string, indent string) (string, error)
+		MarshalPretty(indent string) ([]byte, error)
+		StringPretty(indent string) (string, error)
+		ToXMLPretty(indent string) (string, error)
 		SetText(text string) XMLer
 		SetAttr(key, value string) XMLer
 	}
@@ -69,8 +69,8 @@ func (t *XML) ToXML() (string, error) {
 }
 
 // ToXMLIndent returns formatted XML String with XML declaration
-func (t *XML) ToXMLIndent(prefix string, indent string) (string, error) {
-	x, err := t.StringIndent(prefix, indent)
+func (t *XML) ToXMLPretty(indent string) (string, error) {
+	x, err := t.StringPretty(indent)
 	return xml.Header + x, err
 }
 
@@ -81,8 +81,8 @@ func (t *XML) String() (string, error) {
 }
 
 // StringIndent returns formatted XML String
-func (t *XML) StringIndent(prefix string, indent string) (string, error) {
-	s, err := t.MarshalIndent(prefix, indent)
+func (t *XML) StringPretty(indent string) (string, error) {
+	s, err := t.MarshalPretty(indent)
 	return string(s), err
 }
 
@@ -92,8 +92,8 @@ func (t *XML) Marshal() ([]byte, error) {
 }
 
 // MarshalIndent returns XML Byte Slice with prefix and indent
-func (t *XML) MarshalIndent(prefix string, indent string) ([]byte, error) {
-	return xml.MarshalIndent(t, prefix, indent)
+func (t *XML) MarshalPretty(indent string) ([]byte, error) {
+	return xml.MarshalIndent(t, "", indent)
 }
 
 // SetAttr adds key-value attributes to the generated xml
