@@ -12,6 +12,7 @@ type (
 		Identity(string) Client
 		AppendIdentity(Identity) Client
 		Parameter(...attr.Option) Client
+		AppendParameter(Parameter) Client
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -57,5 +58,11 @@ func (e *client) SetIdentity(i string) Client {
 // AppendIdentity appends <Identity> element
 func (e *client) AppendIdentity(i Identity) Client {
 	e.Append(i)
+	return e
+}
+
+// AppendParameter appends <Parameter> element
+func (e *client) AppendParameter(p Parameter) Client {
+	e.Append(p)
 	return e
 }

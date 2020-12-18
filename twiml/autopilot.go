@@ -25,12 +25,12 @@ func NewAutopilot(name string) Autopilot {
 }
 
 // GetEmbedXML returns embed xml
-func (c *autopilot) GetEmbedXML() core.XMLer {
-	return c.XML
+func (e *autopilot) GetEmbedXML() core.XMLer {
+	return e.XML
 }
 
 // SetName sets name
-func (c *autopilot) SetName(name string) Autopilot {
-	c.SetText(name)
-	return c
+func (e *autopilot) SetName(name string) Autopilot {
+	e.SetText(name)
+	return e
 }

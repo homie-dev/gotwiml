@@ -9,6 +9,8 @@ type (
 	// Enqueue is <Enqueue> twiml verb
 	Enqueue interface {
 		SetQueueName(queueName string) Enqueue
+		Task(body string, options ...attr.Option) Enqueue
+		AppendTask(Task) Enqueue
 		core.XMLer
 		core.EmbedXMLer
 	}
@@ -36,5 +38,17 @@ func (c *enqueue) GetEmbedXML() core.XMLer {
 // SetQueueName sets queue name
 func (c *enqueue) SetQueueName(queueName string) Enqueue {
 	c.SetText(queueName)
+	return c
+}
+
+// Task appends <Task> element with options
+func (c *enqueue) Task(body string, attrs ...attr.Option) Enqueue {
+	c.Append(NewTask(body, attrs...))
+	return c
+}
+
+// AppendTask appends <Task> element
+func (c *enqueue) AppendTask(n Task) Enqueue {
+	c.Append(n)
 	return c
 }

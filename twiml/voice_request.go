@@ -89,20 +89,21 @@ type (
 
 	// DialActionRequest provides the request parameters of dialing result
 	DialActionRequest struct {
-		AccountSID     string
-		APIVersion     string
-		ApplicationSID string
-		CallSID        string
-		CallStatus     string
-		Called         string
-		Caller         string
-		Direction      string
-		From           string
-		To             string
-		DialCallSID    string
-		DialCallStatus string
-		RecordingSID   string
-		RecordingURL   string
+		AccountSID       string
+		APIVersion       string
+		ApplicationSID   string
+		CallSID          string
+		CallStatus       string
+		Called           string
+		Caller           string
+		Direction        string
+		From             string
+		To               string
+		DialCallSID      string
+		DialCallDuration int
+		DialCallStatus   string
+		RecordingSID     string
+		RecordingURL     string
 	}
 
 	// TODO

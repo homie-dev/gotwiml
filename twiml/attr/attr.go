@@ -49,6 +49,7 @@ const (
 	_errorType                     = "errorType"
 	_finishOnKey                   = "finishOnKey"
 	_for                           = "for"
+	_from                          = "from"
 	_hangupOnStar                  = "hangupOnStar"
 	_hints                         = "hints"
 	_input                         = "input"
@@ -74,6 +75,7 @@ const (
 	_playBeep                      = "playBeep"
 	_postalCode                    = "postalCode"
 	_postWorkActivitySID           = "postWorkActivitySid"
+	_priority                      = "profanityFilter"
 	_profanityFilter               = "profanityFilter"
 	_reason                        = "reason"
 	_record                        = "record"
@@ -93,6 +95,7 @@ const (
 	_statusCallbackMethod          = "statusCallbackMethod"
 	_timeLimit                     = "timeLimit"
 	_timeout                       = "timeout"
+	_to                            = "to"
 	_tokenType                     = "tokenType"
 	_track                         = "track"
 	_transcribe                    = "transcribe"
@@ -258,6 +261,13 @@ func FinishOnKey(v string) Option {
 func For(v for_.Type) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_for, string(v))
+	}
+}
+
+// From sets number to send message from
+func From(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_from, v)
 	}
 }
 
@@ -440,6 +450,13 @@ func PostWorkActivitySID(v string) Option {
 	}
 }
 
+// Priority sets task priority
+func Priority(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_priority, v)
+	}
+}
+
 // ProfanityFilter sets profanity filter on speech
 func ProfanityFilter(v bool) Option {
 	return func(t core.XMLer) {
@@ -574,6 +591,13 @@ func TimeLimit(sec int) Option {
 func Timeout(sec int) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_timeout, strconv.Itoa(sec))
+	}
+}
+
+// To is Time to wait for answer
+func To(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_to, v)
 	}
 }
 

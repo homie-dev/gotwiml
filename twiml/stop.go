@@ -6,55 +6,55 @@ import (
 )
 
 type (
-	// Start is <Start> twiml verb
-	Start interface {
-		Siprec(...attr.Option) Start
-		AppendSiprec(Siprec) Start
-		Stream(...attr.Option) Start
-		AppendStream(Stream) Start
+	// Stop is <Stop> twiml verb
+	Stop interface {
+		Siprec(...attr.Option) Stop
+		AppendSiprec(Siprec) Stop
+		Stream(...attr.Option) Stop
+		AppendStream(Stream) Stop
 		core.XMLer
 		core.EmbedXMLer
 	}
 
-	start struct {
+	stop struct {
 		*core.XML
 	}
 )
 
-// NewStart creates <Start> element
-func NewStart(options ...attr.Option) Start {
-	c := core.NewCoreXML(tagStart)
+// NewStop creates <Stop> element
+func NewStop(options ...attr.Option) Stop {
+	c := core.NewCoreXML(tagStop)
 	for _, o := range options {
 		o(c)
 	}
-	return &start{XML: c}
+	return &stop{XML: c}
 }
 
 // GetEmbedXML returns embed xml
-func (e *start) GetEmbedXML() core.XMLer {
+func (e *stop) GetEmbedXML() core.XMLer {
 	return e.XML
 }
 
 // AppendSiprec appends <Siprec> element with optons
-func (e *start) Siprec(options ...attr.Option) Start {
+func (e *stop) Siprec(options ...attr.Option) Stop {
 	e.Append(NewSiprec(options...))
 	return e
 }
 
 // AppendSiprec appends <Siprec> element
-func (e *start) AppendSiprec(s Siprec) Start {
+func (e *stop) AppendSiprec(s Siprec) Stop {
 	e.Append(s)
 	return e
 }
 
 // AppendStream appends <Stream> element with options
-func (e *start) Stream(options ...attr.Option) Start {
+func (e *stop) Stream(options ...attr.Option) Stop {
 	e.Append(NewStream(options...))
 	return e
 }
 
 // AppendStream appends <Stream> element
-func (e *start) AppendStream(s Stream) Start {
+func (e *stop) AppendStream(s Stream) Stop {
 	e.Append(s)
 	return e
 }
