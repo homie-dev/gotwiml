@@ -9,10 +9,10 @@ type (
 	XMLer interface {
 		Append(XMLer) XMLer
 		Nest(XMLer) XMLer
-		Marshal() ([]byte, error)
+		Blob() ([]byte, error)
 		String() (string, error)
 		ToXML() (string, error)
-		MarshalPretty(indent string) ([]byte, error)
+		BlobPretty(indent string) ([]byte, error)
 		StringPretty(indent string) (string, error)
 		ToXMLPretty(indent string) (string, error)
 		SetText(text string) XMLer
@@ -76,23 +76,23 @@ func (t *XML) ToXMLPretty(indent string) (string, error) {
 
 // String returns XML String
 func (t *XML) String() (string, error) {
-	s, err := t.Marshal()
+	s, err := t.Blob()
 	return string(s), err
 }
 
 // StringIndent returns formatted XML String
 func (t *XML) StringPretty(indent string) (string, error) {
-	s, err := t.MarshalPretty(indent)
+	s, err := t.BlobPretty(indent)
 	return string(s), err
 }
 
 // Marshal returns XML Byte Slice
-func (t *XML) Marshal() ([]byte, error) {
+func (t *XML) Blob() ([]byte, error) {
 	return xml.Marshal(t)
 }
 
 // MarshalIndent returns XML Byte Slice with prefix and indent
-func (t *XML) MarshalPretty(indent string) ([]byte, error) {
+func (t *XML) BlobPretty(indent string) ([]byte, error) {
 	return xml.MarshalIndent(t, "", indent)
 }
 
