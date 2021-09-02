@@ -318,9 +318,9 @@ func Length(v int) Option {
 }
 
 // Loop sets times to loop message
-func Loop(v language.Type) Option {
+func Loop(v int) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(_loop, string(v))
+		t.SetAttr(_loop, strconv.Itoa(v))
 	}
 }
 
