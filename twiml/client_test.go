@@ -16,12 +16,12 @@ var _ = DescribeTable("generate <Client> xml",
 	},
 	Entry("empty connect", NewClient(""), "<Client></Client>"),
 	Entry("set attributes", NewClient("",
-		attr.URL("http://example.com"),
+		attr.URL("https://example.com"),
 		attr.Method(http.MethodGet),
 		attr.StatusCallbackEvent(status.CallbackInitiated),
-		attr.StatusCallback("http://callback.com"),
+		attr.StatusCallback("https://callback.com"),
 		attr.StatusCallbackMethod(http.MethodPost),
-	), `<Client url="http://example.com" method="GET" statusCallbackEvent="initiated" statusCallback="http://callback.com" statusCallbackMethod="POST"></Client>`),
+	), `<Client url="https://example.com" method="GET" statusCallbackEvent="initiated" statusCallback="https://callback.com" statusCallbackMethod="POST"></Client>`),
 	Entry("append <Identity>", NewClient("").
 		Identity("user-jane").
 		Parameter(attr.Name("FirstName"), attr.Value("Jane")).
