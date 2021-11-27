@@ -622,7 +622,7 @@ func Transcribe(v bool) Option {
 	}
 }
 
-// TranscribeCallback sets transcribe callback URL
+// TranscribeCallbackURL sets transcribe callback URL
 func TranscribeCallbackURL(v string) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_transcribeCallback, v)

@@ -35,7 +35,7 @@ func (e *stop) GetEmbedXML() core.XMLer {
 	return e.XML
 }
 
-// AppendSiprec appends <Siprec> element with optons
+// Siprec appends <Siprec> element with optons
 func (e *stop) Siprec(options ...attr.Option) Stop {
 	e.Append(NewSiprec(options...))
 	return e
@@ -47,7 +47,7 @@ func (e *stop) AppendSiprec(s Siprec) Stop {
 	return e
 }
 
-// AppendStream appends <Stream> element with options
+// Stream appends <Stream> element with options
 func (e *stop) Stream(options ...attr.Option) Stop {
 	e.Append(NewStream(options...))
 	return e

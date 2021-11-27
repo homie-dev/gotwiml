@@ -74,7 +74,7 @@ func (d *dial) Conference(roomName string, attrs ...attr.Option) Dial {
 	return d
 }
 
-// Conference appends <Conference> element
+// AppendConference appends <Conference> element
 func (d *dial) AppendConference(c Conference) Dial {
 	d.Append(c)
 	return d

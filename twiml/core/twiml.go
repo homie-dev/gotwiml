@@ -68,7 +68,7 @@ func (t *XML) ToXML() (string, error) {
 	return xml.Header + x, err
 }
 
-// ToXMLIndent returns formatted XML String with XML declaration
+// ToXMLPretty returns formatted XML String with XML declaration
 func (t *XML) ToXMLPretty(indent string) (string, error) {
 	x, err := t.StringPretty(indent)
 	return xml.Header + x, err
@@ -80,18 +80,18 @@ func (t *XML) String() (string, error) {
 	return string(s), err
 }
 
-// StringIndent returns formatted XML String
+// StringPretty returns formatted XML String
 func (t *XML) StringPretty(indent string) (string, error) {
 	s, err := t.BlobPretty(indent)
 	return string(s), err
 }
 
-// Marshal returns XML Byte Slice
+// Blob returns XML Byte Slice
 func (t *XML) Blob() ([]byte, error) {
 	return xml.Marshal(t)
 }
 
-// MarshalIndent returns XML Byte Slice with prefix and indent
+// BlobPretty returns XML Byte Slice with prefix and indent
 func (t *XML) BlobPretty(indent string) ([]byte, error) {
 	return xml.MarshalIndent(t, "", indent)
 }

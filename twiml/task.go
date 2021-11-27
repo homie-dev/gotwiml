@@ -33,7 +33,7 @@ func (c *task) GetEmbedXML() core.XMLer {
 	return c.XML
 }
 
-// SetTask sets task body
+// SetBody sets task body
 func (c *task) SetBody(body string) Task {
 	c.SetText(body)
 	return c
