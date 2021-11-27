@@ -7,6 +7,15 @@ gotwiml is a library for generating TwiML written in golang
 A simple example of use is as follows
 
 ```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/homie-dev/gotwiml/twiml"
+	"github.com/homie-dev/gotwiml/twiml/attr"
+)
+
 func main() {
     resp := twiml.NewVoiceResponse().
         Say("hello world!", attr.Voice(voice.Alice))
