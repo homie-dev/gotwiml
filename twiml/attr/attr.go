@@ -679,9 +679,9 @@ func WaitMethod(v http.Method) Option {
 }
 
 // WaitURL sets wait URL
-func WaitURL(v http.Method) Option {
+func WaitURL(v string) Option {
 	return func(t core.XMLer) {
-		t.SetAttr(_waitURL, string(v))
+		t.SetAttr(_waitURL, v)
 	}
 }
 
