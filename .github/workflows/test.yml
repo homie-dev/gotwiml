@@ -4,6 +4,7 @@ on:
       - master
     paths:
       - 'twiml/**.go'
+      - ".github/workflows/test.yml"
 
 name: run test
 
@@ -34,12 +35,12 @@ jobs:
           ${{ runner.os }}-go-
 
     - name: download modules
-      working-directory: ./twiml
+      working-directory: .
       if: steps.cache.outputs.cache-hit != 'true'
       run: go mod download
 
     - name: run test
-      working-directory: ./twiml
+      working-directory: .
       env:
         TZ: Asia/Tokyo
       run: make test
