@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/homie-dev/gotwiml/twiml/attr/const/amd"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/bank"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/beep"
 	"github.com/homie-dev/gotwiml/twiml/attr/const/card"
@@ -29,87 +30,94 @@ import (
 type Option func(core.XMLer)
 
 const (
-	_action                        = "action"
-	_actionOnEmptyResult           = "actionOnEmptyResult"
-	_answerOnBridge                = "answerOnBridge"
-	_attempt                       = "attempt"
-	_bankAccountType               = "bankAccountType"
-	_beep                          = "beep"
-	_byoc                          = "byoc"
-	_callerID                      = "callerId"
-	_cardType                      = "cardType"
-	_chargeAmount                  = "chargeAmount"
-	_coach                         = "coach"
-	_connectorName                 = "connectorName"
-	_currency                      = "currency"
-	_description                   = "description"
-	_digits                        = "digits"
-	_endConferenceOnExit           = "endConferenceOnExit"
-	_enhanced                      = "enhanced"
-	_errorType                     = "errorType"
-	_finishOnKey                   = "finishOnKey"
-	_for                           = "for"
-	_from                          = "from"
-	_hangupOnStar                  = "hangupOnStar"
-	_hints                         = "hints"
-	_input                         = "input"
-	_jitterBufferSize              = "jitterBufferSize"
-	_language                      = "language"
-	_length                        = "length"
-	_loop                          = "loop"
-	_maxAttempts                   = "maxAttempts"
-	_maxLength                     = "maxLength"
-	_maxParticipants               = "maxParticipants"
-	_method                        = "method"
-	_minPostalCodeLength           = "minPostalCodeLength"
-	_muted                         = "muted"
-	_name                          = "name"
-	_numDigits                     = "numDigits"
-	_partialResultCallback         = "partialResultCallback"
-	_partialResultCallbackMethod   = "partialResultCallbackMethod"
-	_participantIdentity           = "participantIdentity"
-	_participantLabel              = "participantLabel"
-	_paymentConnector              = "paymentConnector"
-	_paymentMethod                 = "paymentMethod"
-	_password                      = "password"
-	_playBeep                      = "playBeep"
-	_postalCode                    = "postalCode"
-	_postWorkActivitySID           = "postWorkActivitySid"
-	_priority                      = "profanityFilter"
-	_profanityFilter               = "profanityFilter"
-	_reason                        = "reason"
-	_record                        = "record"
-	_recordingStatusCallback       = "recordingStatusCallback"
-	_recordingStatusCallbackEvent  = "recordingStatusCallbackEvent"
-	_recordingStatusCallbackMethod = "recordingStatusCallbackMethod"
-	_region                        = "region"
-	_reservationSID                = "reservationSid"
-	_ringTone                      = "ringTone"
-	_sendDigits                    = "sendDigits"
-	_securityCode                  = "securityCode"
-	_speechModel                   = "speechModel"
-	_speechTimeout                 = "speechTimeout"
-	_startConferenceOnEnter        = "startConferenceOnEnter"
-	_statusCallback                = "statusCallback"
-	_statusCallbackEvent           = "statusCallbackEvent"
-	_statusCallbackMethod          = "statusCallbackMethod"
-	_timeLimit                     = "timeLimit"
-	_timeout                       = "timeout"
-	_to                            = "to"
-	_tokenType                     = "tokenType"
-	_track                         = "track"
-	_transcribe                    = "transcribe"
-	_transcribeCallback            = "transcribeCallback"
-	_trim                          = "trim"
-	_url                           = "url"
-	_username                      = "username"
-	_validCardTypes                = "validCardTypes"
-	_value                         = "value"
-	_voice                         = "voice"
-	_waitMethod                    = "waitMethod"
-	_waitURL                       = "waitUrl"
-	_waitURLMethod                 = "waitUrlMethod"
-	_workflowSID                   = "workflowSid"
+	_action                             = "action"
+	_actionOnEmptyResult                = "actionOnEmptyResult"
+	_amdStatusCallback                  = "amdStatusCallback"
+	_amdStatusCallbackMethod            = "amdStatusCallbackMethod"
+	_answerOnBridge                     = "answerOnBridge"
+	_attempt                            = "attempt"
+	_bankAccountType                    = "bankAccountType"
+	_beep                               = "beep"
+	_byoc                               = "byoc"
+	_callerID                           = "callerId"
+	_cardType                           = "cardType"
+	_chargeAmount                       = "chargeAmount"
+	_coach                              = "coach"
+	_connectorName                      = "connectorName"
+	_currency                           = "currency"
+	_description                        = "description"
+	_digits                             = "digits"
+	_endConferenceOnExit                = "endConferenceOnExit"
+	_enhanced                           = "enhanced"
+	_errorType                          = "errorType"
+	_finishOnKey                        = "finishOnKey"
+	_for                                = "for"
+	_from                               = "from"
+	_hangupOnStar                       = "hangupOnStar"
+	_hints                              = "hints"
+	_input                              = "input"
+	_jitterBufferSize                   = "jitterBufferSize"
+	_language                           = "language"
+	_length                             = "length"
+	_loop                               = "loop"
+	_maxAttempts                        = "maxAttempts"
+	_machineDetection                   = "machineDetection"
+	_machineDetectionSilenceTimeout     = "machineDetectionSilenceTimeout"
+	_machineDetectionSpeechEndThreshold = "machineDetectionSpeechEndThreshold"
+	_machineDetectionSpeechThreshold    = "machineDetectionSpeechThreshold"
+	_machineDetectionTimeout            = "machineDetectionTimeout"
+	_maxLength                          = "maxLength"
+	_maxParticipants                    = "maxParticipants"
+	_method                             = "method"
+	_minPostalCodeLength                = "minPostalCodeLength"
+	_muted                              = "muted"
+	_name                               = "name"
+	_numDigits                          = "numDigits"
+	_partialResultCallback              = "partialResultCallback"
+	_partialResultCallbackMethod        = "partialResultCallbackMethod"
+	_participantIdentity                = "participantIdentity"
+	_participantLabel                   = "participantLabel"
+	_paymentConnector                   = "paymentConnector"
+	_paymentMethod                      = "paymentMethod"
+	_password                           = "password"
+	_playBeep                           = "playBeep"
+	_postalCode                         = "postalCode"
+	_postWorkActivitySID                = "postWorkActivitySid"
+	_priority                           = "profanityFilter"
+	_profanityFilter                    = "profanityFilter"
+	_reason                             = "reason"
+	_record                             = "record"
+	_recordingStatusCallback            = "recordingStatusCallback"
+	_recordingStatusCallbackEvent       = "recordingStatusCallbackEvent"
+	_recordingStatusCallbackMethod      = "recordingStatusCallbackMethod"
+	_region                             = "region"
+	_reservationSID                     = "reservationSid"
+	_ringTone                           = "ringTone"
+	_sendDigits                         = "sendDigits"
+	_securityCode                       = "securityCode"
+	_speechModel                        = "speechModel"
+	_speechTimeout                      = "speechTimeout"
+	_startConferenceOnEnter             = "startConferenceOnEnter"
+	_statusCallback                     = "statusCallback"
+	_statusCallbackEvent                = "statusCallbackEvent"
+	_statusCallbackMethod               = "statusCallbackMethod"
+	_timeLimit                          = "timeLimit"
+	_timeout                            = "timeout"
+	_to                                 = "to"
+	_tokenType                          = "tokenType"
+	_track                              = "track"
+	_transcribe                         = "transcribe"
+	_transcribeCallback                 = "transcribeCallback"
+	_trim                               = "trim"
+	_url                                = "url"
+	_username                           = "username"
+	_validCardTypes                     = "validCardTypes"
+	_value                              = "value"
+	_voice                              = "voice"
+	_waitMethod                         = "waitMethod"
+	_waitURL                            = "waitUrl"
+	_waitURLMethod                      = "waitUrlMethod"
+	_workflowSID                        = "workflowSid"
 )
 
 // Action sets action url
@@ -123,6 +131,20 @@ func Action(v string) Option {
 func ActionOnEmptyResult(v bool) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_actionOnEmptyResult, strconv.FormatBool(v))
+	}
+}
+
+// AMDStatusCallback sets AMD status callback URL
+func AMDStatusCallback(v string) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_amdStatusCallback, v)
+	}
+}
+
+// AMDStatusCallbackMethod sets AMD status callback URL method
+func AMDStatusCallbackMethod(v http.Method) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_amdStatusCallbackMethod, string(v))
 	}
 }
 
@@ -321,6 +343,41 @@ func Length(v int) Option {
 func Loop(v int) Option {
 	return func(t core.XMLer) {
 		t.SetAttr(_loop, strconv.Itoa(v))
+	}
+}
+
+// MachineDetection sets machineDetection type
+func MachineDetection(v amd.Type) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_machineDetection, string(v))
+	}
+}
+
+// machineDetectionSilenceTimeout sets machineDetectionSilenceTimeout
+func MachineDetectionSilenceTimeout(milliSec amd.SilenceTimeout) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_machineDetectionSilenceTimeout, strconv.Itoa(int(milliSec)))
+	}
+}
+
+// MachineDetectionSpeechEndThreshold sets machineDetectionSpeechEndThreshold
+func MachineDetectionSpeechEndThreshold(milliSec amd.SpeechEndThreshold) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_machineDetectionSpeechEndThreshold, strconv.Itoa(int(milliSec)))
+	}
+}
+
+// MachineDetectionSpeechThreshold sets machineDetectionSpeechThreshold
+func MachineDetectionSpeechThreshold(milliSec amd.SpeechThreshold) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_machineDetectionSpeechThreshold, strconv.Itoa(int(milliSec)))
+	}
+}
+
+// MachineDetectionTimeout sets machineDetectionTimeout
+func MachineDetectionTimeout(sec amd.Timeout) Option {
+	return func(t core.XMLer) {
+		t.SetAttr(_machineDetectionTimeout, strconv.Itoa(int(sec)))
 	}
 }
 
